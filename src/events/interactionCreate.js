@@ -1,30 +1,34 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, InteractionType } = require('discord.js');
 
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
         // Modal do komemdy eval
-        if (interaction.isModalSubmit()) {
+        if (interaction.type === InteractionType.ModalSubmit) {
             const toEval = interaction.fields.getTextInputValue('code');
             try {
                 const evaled = eval(toEval);
-                let embed = new MessageEmbed()
+                let embed = new EmbedBuilder()
                     .setColor('#00ff00')
-                    .addField('Input', `\`\`\`js\n${toEval}\n\`\`\``)
-                    .addField('Output', `\`\`\`xl\n${evaled}\n\`\`\``);
+                    .addFields([
+                        { name: 'Input', value: `\`\`\`js\n${toEval}\n\`\`\`` },
+                        { name: 'Output', value: `\`\`\`xl\n${evaled}\n\`\`\``}
+                    ])
                 interaction.reply({ embeds: [embed] });
             } catch (error) {
-                let embed = new MessageEmbed()
+                let embed = new EmbedBuilder()
                     .setColor('#ff0000')
-                    .addField('Input', `\`\`\`js\n${toEval}\n\`\`\``)
-                    .addField('Output', `\`\`\`xl\n${error}\n\`\`\``);
+                    .addFields([
+                        { name: 'Input', value: `\`\`\`js\n${toEval}\n\`\`\`` },
+                        { name: 'Output', value: `\`\`\`xl\n${error}\n\`\`\``}
+                    ])
                 interaction.reply({ embeds: [embed] });
             }
             return;
         }
 
         // Komendy
-        if (!interaction.isCommand()) return;
+        if (!interaction.type === InteractionType.ApplicationCommand) return;
         const command = interaction.client.commands.get(interaction.commandName);
 
         if (!command) return;

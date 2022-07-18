@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, Modal, TextInputComponent } = require('discord.js');
+const { ActionRowBuilder, ModalBuilder, TextInputBuilder, SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,13 +11,13 @@ module.exports = {
             return;
         }
         
-        const modal = new Modal({ customId: 'evalModal', title: '/eval' });
-        const code = new TextInputComponent()
+        const modal = new ModalBuilder({ customId: 'evalModal', title: '/eval' });
+        const code = new TextInputBuilder()
             .setCustomId('code')
             .setLabel('Wprowadź kod do wykonania')
             .setRequired(true)
-            .setStyle('PARAGRAPH');
-        const actionRow = new MessageActionRow().addComponents([code]);
+            .setStyle('Paragraph');
+        const actionRow = new ActionRowBuilder().addComponents([code]);
         modal.addComponents(actionRow);
 
         await interaction.showModal(modal);
