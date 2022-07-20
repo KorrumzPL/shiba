@@ -6,7 +6,7 @@ module.exports = {
         .setDescription('Losowe zdjęcie psa rasy Shiba Inu z r/shiba'),
 
         async execute(interaction) {
-            const posts = await fetch('https://www.reddit.com/r/shiba.json?sort=new&limit=100')
+            await fetch('https://www.reddit.com/r/shiba.json?sort=new&limit=100')
                 .then(res => res.json())
                 .then(json => {
                     const allowed = json.data.children.filter(post => post.data.url.includes('.jpg'));

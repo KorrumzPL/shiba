@@ -2,8 +2,8 @@
 
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder } = require('discord.js');
 const dayjs = require('dayjs');
-const utc = require('dayjs/plugin/utc')
-const timezone = require('dayjs/plugin/timezone')
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
 dayjs.extend(utc);
 dayjs.extend(timezone);
 const package = require(process.env.npm_package_json);
@@ -16,14 +16,14 @@ module.exports = {
         
     async execute(interaction) {
         const used = process.memoryUsage().heapUsed / 1024 / 1024;
-        const members = interaction.client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
+        const members = interaction.client.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
         const days = Math.floor(interaction.client.uptime / 86400000);
         const hours = Math.floor(interaction.client.uptime / 3600000) % 24;
         const minutes = Math.floor(interaction.client.uptime / 60000) % 60;
         const seconds = Math.floor(interaction.client.uptime / 1000) % 60;
 
         const embed = new EmbedBuilder()
-            .setColor("#0094d4")
+            .setColor('#0094d4')
             .setAuthor({ name: interaction.client.user.tag, iconURL: interaction.client.user.avatarURL() })
             .addFields([
                 { name: 'Wersje', value: stripIndent`
