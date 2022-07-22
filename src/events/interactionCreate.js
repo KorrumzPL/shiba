@@ -5,11 +5,12 @@ module.exports = {
 	async execute(interaction) {
 		// Modal do komemdy eval
 		if (interaction.type === InteractionType.ModalSubmit) {
+			const colors = require('../utils/colors.json');
 			const toEval = interaction.fields.getTextInputValue('code');
 			try {
 				const evaled = eval(toEval);
 				const embed = new EmbedBuilder()
-					.setColor('#00ff00')
+					.setColor(colors.green)
 					.addFields([
 						{ name: 'Input', value: `\`\`\`js\n${toEval}\n\`\`\`` },
 						{ name: 'Output', value: `\`\`\`xl\n${evaled}\n\`\`\`` },
@@ -18,7 +19,7 @@ module.exports = {
 			}
 			catch (error) {
 				const embed = new EmbedBuilder()
-					.setColor('#ff0000')
+					.setColor(colors.red)
 					.addFields([
 						{ name: 'Input', value: `\`\`\`js\n${toEval}\n\`\`\`` },
 						{ name: 'Output', value: `\`\`\`xl\n${error}\n\`\`\`` },

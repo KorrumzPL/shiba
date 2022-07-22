@@ -8,6 +8,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 const package = require(process.env.npm_package_json);
 const { stripIndent } = require('common-tags');
+const colors = require('../utils/colors.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -23,7 +24,7 @@ module.exports = {
 		const seconds = Math.floor(interaction.client.uptime / 1000) % 60;
 
 		const embed = new EmbedBuilder()
-			.setColor('#0094d4')
+			.setColor(colors.blue)
 			.setAuthor({ name: interaction.client.user.tag, iconURL: interaction.client.user.avatarURL() })
 			.addFields([
 				{ name: 'Wersje', value: stripIndent`
@@ -50,9 +51,9 @@ module.exports = {
 					.setStyle('Link')
 					.setURL(`https://discord.com/api/oauth2/authorize?client_id=${interaction.client.application.id}&permissions=1644971949559&scope=bot%20applications.commands`),
 				new ButtonBuilder()
-					.setLabel('Zaproś bota (admin)')
+					.setLabel('Shiba Support')
 					.setStyle('Link')
-					.setURL(`https://discord.com/api/oauth2/authorize?client_id=${interaction.client.application.id}&permissions=8&scope=bot%20applications.commands`),
+					.setURL('https://discord.gg/QJaXP6GqEy'),
 				new ButtonBuilder()
 					.setLabel('GitHub')
 					.setStyle('Link')

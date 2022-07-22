@@ -1,4 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
+const colors = require('../utils/colors.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -7,7 +8,7 @@ module.exports = {
 
 	async execute(interaction) {
 		const embed = new EmbedBuilder()
-			.setColor('#0094d4')
+			.setColor(colors.blue)
 			.setTitle(':wrench:  Konfiguracja bota')
 			.setDescription('Tu jeszcze nic nie ma (ale będzie).');
 

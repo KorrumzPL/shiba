@@ -1,4 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
+const colors = require('../utils/colors.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -13,6 +14,7 @@ module.exports = {
 				const allowed = json.data.children.filter(post => post.data.url.includes('.jpg'));
 				const randomPost = Math.floor(Math.random() * allowed.length);
 				const embed = new EmbedBuilder()
+					.setColor(colors.blue)
 					.setTitle(allowed[randomPost].data.title)
 					.setImage(allowed[randomPost].data.url)
 					.setURL(`https://reddit.com${allowed[randomPost].data.permalink}`);

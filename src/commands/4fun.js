@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const colors = require('../utils/colors.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -53,6 +54,7 @@ module.exports = {
 			case 'experiments': {
 				const yyy = '```js\nObject.defineProperty((webpackChunkdiscord_app.push([[\'\'],{},e=>{m=[];for(let c in e.c)m.push(e.c[c])}]),m).find(m=>m?.exports?.default?.isDeveloper!==void 0).exports.default,"isDeveloper",{get:()=>true});\n```';
 				const embed = new EmbedBuilder()
+					.setColor(colors.blue)
 					.setDescription(yyy)
 					.setFooter({ text: 'https://gist.github.com/ExampleWasTaken/44ebdb4ac5980760ae8ebfbf995c5390' });
 				await interaction.reply({ embeds: [embed] });
