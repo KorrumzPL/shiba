@@ -6,6 +6,7 @@ module.exports = {
 		.setDescription('Losowe zdjęcie psa rasy Shiba Inu z r/shiba'),
 
 	async execute(interaction) {
+		await interaction.deferReply();
 		await fetch('https://www.reddit.com/r/shiba.json?sort=new&limit=100')
 			.then(res => res.json())
 			.then(json => {
@@ -15,7 +16,7 @@ module.exports = {
 					.setTitle(allowed[randomPost].data.title)
 					.setImage(allowed[randomPost].data.url)
 					.setURL(`https://reddit.com${allowed[randomPost].data.permalink}`);
-				interaction.reply({ embeds: [embed] });
+				interaction.editReply({ embeds: [embed] });
 			});
 	},
 };
