@@ -38,6 +38,12 @@ module.exports = {
 			subcommand
 				.setName('depresso')
 				.setDescription('Poproś bota o filiżankę depresso'),
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('zgon')
+				.setDescription('Generuje akt zgonu danego użytkownika')
+				.addUserOption(option => option.setName('martwy').setDescription('Podaj dowolnego użytkownika').setRequired(true)),
 		),
 
 	async execute(interaction) {
@@ -82,6 +88,34 @@ module.exports = {
 					const attachment = new AttachmentBuilder().setFile('https://nomz.ct8.pl/pliki/depresso.png');
 					await interaction.reply({ content: 'Proszę, oto twoja filiżanka depresso.', tts: true, files: [attachment] });
 				}
+				break;
+			}
+			case 'zgon': {
+				const dayjs = require('dayjs');
+				const Canvas = require('@napi-rs/canvas');
+				const canvas = Canvas.createCanvas(794, 1123);
+				const ctx = canvas.getContext('2d');
+				const akt = new Canvas.Image();
+
+				// https://twitter.com/TygodnikNIE/status/1549299100310462464
+				ctx.fillStyle = '#ffffff';
+				ctx.fillRect(0, 0, 794, 1123);
+				ctx.drawImage(akt, 0, 0, canvas.width, canvas.height);
+				ctx.textAlign = 'center';
+				ctx.fillStyle = '#000000';
+				ctx.font = 'bold 48px Comic Sans MS';
+				ctx.fillText('ALBAŃSKI AKT ZGONU', 397, 100);
+				ctx.font = '48px Comic Sans MS';
+				ctx.fillText(`Dnia ${dayjs().format('DD.MM.YYYY')} r. wziął i umarł`, 397, 400);
+				ctx.font = '60px Comic Sans MS';
+				ctx.fillText(interaction.options.getUser('martwy').tag, 397, 550);
+				ctx.font = '32px Comic Sans MS';
+				ctx.fillText('Zatwierdzam', 590, 900);
+				ctx.font = '40px Comic Sans MS';
+				ctx.fillText('Shiba Nomzowski', 590, 1000);
+
+				const attachment = new AttachmentBuilder(canvas.toBuffer('image/png'), { name: 'akt_zgonu.png' });
+				await interaction.reply({ files: [attachment] });
 				break;
 			}
 		}

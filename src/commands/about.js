@@ -31,12 +31,12 @@ module.exports = {
                     Shiba: **${process.env.npm_package_version}**
                     Node.js: **${process.versions.node}**
                     discord.js: **${package.dependencies['discord.js'].split('^').join('')}**
-                ` },
+                `, inline: true },
 				{ name: 'Statystyki', value: stripIndent`
                     Serwery / użytkownicy: **${interaction.client.guilds.cache.size} / ${members}**
                     Uptime: **${days}d, ${hours}h, ${minutes}m ${seconds}s**
                     Data utworzenia bota: **${dayjs.tz(interaction.client.user.createdAt, 'Europe/Warsaw').format('DD/MM/YYYY HH:mm:ss')}**
-                ` },
+                `, inline: true },
 				{ name: 'Techniczne', value: stripIndent`
                     Użycie pamięci RAM: **${Math.round(used * 100) / 100} MB**
                     Ping: **${interaction.client.ws.ping} ms**
