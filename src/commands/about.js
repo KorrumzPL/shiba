@@ -49,7 +49,7 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('Zaproś bota')
 					.setStyle('Link')
-					.setURL(`https://discord.com/api/oauth2/authorize?client_id=${interaction.client.application.id}&permissions=1644971949559&scope=bot%20applications.commands`),
+					.setURL(`https://discord.com/api/oauth2/authorize?client_id=${interaction.client.application.id}&permissions=1644971949559&scope=bot`),
 				new ButtonBuilder()
 					.setLabel('Shiba Support')
 					.setStyle('Link')
@@ -57,7 +57,7 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('GitHub')
 					.setStyle('Link')
-					.setURL(package.homepage.split('#readme').join('')),
+					.setURL(package.homepage),
 			);
 
 		await interaction.reply({ embeds: [embed], components: [row], content: 'Siema. To jest (kolejny) rewrite Shiby (w końcu).\nJak na razie nie ma zbyt dużo komend, ale z każdą aktualizacją będą przybywać nowe.' });
