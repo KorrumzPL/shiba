@@ -81,12 +81,12 @@ module.exports = {
 				dayjs.extend(utc);
 				dayjs.extend(timezone);
 
-				if (dayjs().tz('Europe/Warsaw').hour() > 11 || dayjs().tz('Europe/Warsaw').hour() > 6) {
-					await interaction.reply('Depresso wydaję tylko między godziną 6 a 11.');
-				}
-				else {
+				if (dayjs().tz('Europe/Warsaw').hour() < 11 && dayjs().tz('Europe/Warsaw').hour() > 5) {
 					const attachment = new AttachmentBuilder().setFile('https://nomz.ct8.pl/pliki/depresso.png');
 					await interaction.reply({ content: 'Proszę, oto twoja filiżanka depresso.', tts: true, files: [attachment] });
+				}
+				else {
+					await interaction.reply('Depresso wydaję tylko między godziną 6 a 11.');
 				}
 				break;
 			}
