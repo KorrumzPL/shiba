@@ -36,11 +36,6 @@ module.exports = {
 		)
 		.addSubcommand(subcommand =>
 			subcommand
-				.setName('depresso')
-				.setDescription('Poproś bota o filiżankę depresso'),
-		)
-		.addSubcommand(subcommand =>
-			subcommand
 				.setName('zgon')
 				.setDescription('Generuje akt zgonu danego użytkownika')
 				.addUserOption(option => option.setName('martwy').setDescription('Podaj dowolnego użytkownika').setRequired(true)),
@@ -72,22 +67,6 @@ module.exports = {
 			}
 			case 'ship': {
 				await interaction.reply(`${interaction.options.getUser('osoba1')} i ${interaction.options.getUser('osoba2')} pasują do siebie na ${Math.floor(Math.random() * 100) + 1}%.`);
-				break;
-			}
-			case 'depresso': {
-				const dayjs = require('dayjs');
-				const utc = require('dayjs/plugin/utc');
-				const timezone = require('dayjs/plugin/timezone');
-				dayjs.extend(utc);
-				dayjs.extend(timezone);
-
-				if (dayjs().tz('Europe/Warsaw').hour() < 11 && dayjs().tz('Europe/Warsaw').hour() > 5) {
-					const attachment = new AttachmentBuilder().setFile('https://nomz.ct8.pl/pliki/depresso.png');
-					await interaction.reply({ content: 'Proszę, oto twoja filiżanka depresso.', tts: true, files: [attachment] });
-				}
-				else {
-					await interaction.reply('Depresso wydaję tylko między godziną 6 a 11.');
-				}
 				break;
 			}
 			case 'zgon': {
