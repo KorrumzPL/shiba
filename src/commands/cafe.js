@@ -22,20 +22,21 @@ module.exports = {
 		),
 
 	async execute(interaction) {
+		await interaction.deferReply();
 		switch (interaction.options.getSubcommand()) {
 			case 'depresso': {
 				if (dayjs().tz('Europe/Warsaw').hour() < 11 && dayjs().tz('Europe/Warsaw').hour() > 5) {
 					const attachment = new AttachmentBuilder().setFile('src/utils/depresso.png');
-					await interaction.reply({ content: 'Proszę, oto twoja filiżanka depresso.', tts: true, files: [attachment] });
+					await interaction.editReply({ content: 'Proszę, oto twoja filiżanka depresso.', tts: true, files: [attachment] });
 				}
 				else {
-					await interaction.reply('Depresso wydaję tylko między godziną 6 a 11.');
+					await interaction.editReply('Depresso wydaję tylko między godziną 6 a 11.');
 				}
 				break;
 			}
 			case 'ciastko': {
 				const attachment = new AttachmentBuilder().setFile('src/utils/ciastko.png');
-				await interaction.reply({ content: 'Proszę, oto ciastko dla ciebie.', tts: true, files: [attachment] });
+				await interaction.editReply({ content: 'Proszę, oto ciastko dla ciebie.', tts: true, files: [attachment] });
 				break;
 			}
 		}

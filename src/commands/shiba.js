@@ -19,6 +19,7 @@ module.exports = {
 					.setImage(allowed[randomPost].data.url)
 					.setURL(`https://reddit.com${allowed[randomPost].data.permalink}`);
 				interaction.editReply({ embeds: [embed] });
-			});
+			})
+			.catch(console.error);
 	},
 };
