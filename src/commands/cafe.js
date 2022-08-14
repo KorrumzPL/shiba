@@ -27,7 +27,7 @@ module.exports = {
 			case 'depresso': {
 				if (dayjs().tz('Europe/Warsaw').hour() < 11 && dayjs().tz('Europe/Warsaw').hour() > 5) {
 					const attachment = new AttachmentBuilder().setFile('src/utils/depresso.png');
-					await interaction.editReply({ content: 'Proszę, oto twoja filiżanka depresso.', tts: true, files: [attachment] });
+					await interaction.editReply({ content: 'Proszę, oto twoja filiżanka depresso.', files: [attachment] });
 				}
 				else {
 					await interaction.editReply('Depresso wydaję tylko między godziną 6 a 11.');
@@ -36,7 +36,7 @@ module.exports = {
 			}
 			case 'ciastko': {
 				const attachment = new AttachmentBuilder().setFile('src/utils/ciastko.png');
-				await interaction.editReply({ content: 'Proszę, oto ciastko dla ciebie.', tts: true, files: [attachment] });
+				await interaction.editReply({ content: 'Proszę, oto ciastko dla ciebie.', files: [attachment] });
 				break;
 			}
 		}

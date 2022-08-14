@@ -40,7 +40,10 @@ module.exports = {
 		}
 		catch (error) {
 			console.error(error);
-			await interaction.reply({ content: 'Wystąpił błąd podczas wykonywania komendy.', ephemeral: true });
+			await interaction.channel.send('Wystąpił błąd podczas wykonywania komendy.')
+				.then(message => {
+					setTimeout(() => message.delete(), 5000);
+				});
 		}
 	},
 };
