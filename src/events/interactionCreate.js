@@ -3,6 +3,14 @@ const { EmbedBuilder, InteractionType } = require('discord.js');
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
+		// Komenda cafe
+		if (interaction.isButton()) {
+			const cafe = require('../utils/cafe/cafe.json');
+			await interaction.update({ content: cafe[`${interaction.customId}1`].replace('user', `<@${interaction.user.id}>`), components: [] });
+			await interaction.followUp({ content: cafe[`${interaction.customId}2`], tts: true });
+			return;
+		}
+
 		// Modal do komemdy eval
 		if (interaction.type === InteractionType.ModalSubmit) {
 			const colors = require('../utils/colors.json');
@@ -40,6 +48,7 @@ module.exports = {
 		}
 		catch (error) {
 			console.error(error);
+			if (!interaction.channel) return;
 			await interaction.channel.send('Wystąpił błąd podczas wykonywania komendy.')
 				.then(message => {
 					setTimeout(() => message.delete(), 5000);

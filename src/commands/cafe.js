@@ -1,10 +1,6 @@
 /* eslint-disable indent */
-const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
-const dayjs = require('dayjs');
-const utc = require('dayjs/plugin/utc');
-const timezone = require('dayjs/plugin/timezone');
-dayjs.extend(utc);
-dayjs.extend(timezone);
+const { SlashCommandBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const cafe = require('../utils/cafe/cafe.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -24,34 +20,24 @@ module.exports = {
 			subcommand
 				.setName('cola')
 				.setDescription('Poproś bota o colę'),
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('bagietka')
+				.setDescription('Poproś bota o bagietkę'),
 		),
 
 	async execute(interaction) {
 		await interaction.deferReply();
-		switch (interaction.options.getSubcommand()) {
-			case 'depresso': {
-				if (dayjs().tz('Europe/Warsaw').hour() < 11 && dayjs().tz('Europe/Warsaw').hour() > 5) {
-					const attachment = new AttachmentBuilder().setFile('src/utils/depresso.png');
-					await interaction.editReply({ files: [attachment] });
-					await interaction.channel.send({ content: 'Proszę, oto twoja filiżanka depresso.', tts: true });
-				}
-				else {
-					await interaction.editReply('Depresso wydaję tylko między godziną 6 a 11.');
-				}
-				break;
-			}
-			case 'ciastko': {
-				const attachment = new AttachmentBuilder().setFile('src/utils/ciastko.png');
-				await interaction.editReply({ files: [attachment] });
-				await interaction.channel.send({ content: 'Proszę, oto ciastko dla ciebie.', tts: true });
-				break;
-			}
-			case 'cola': {
-				const attachment = new AttachmentBuilder().setFile('src/utils/cola.png');
-				await interaction.editReply({ files: [attachment] });
-				await interaction.channel.send({ content: 'Proszę, oto twoja puszka coli.', tts: true });
-				break;
-			}
-		}
+		const attachment = new AttachmentBuilder().setFile(`src/utils/cafe/${interaction.options.getSubcommand()}.png`);
+		const action = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setCustomId(interaction.options.getSubcommand())
+					.setLabel(cafe[`${interaction.options.getSubcommand()}0`])
+					.setStyle('Primary'),
+			);
+		await interaction.editReply({ files: [attachment] });
+		await interaction.followUp({ content: cafe[interaction.options.getSubcommand()], tts: true, components: [action] });
 	},
 };

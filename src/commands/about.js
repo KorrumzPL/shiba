@@ -42,7 +42,7 @@ module.exports = {
                     Ping: **${interaction.client.ws.ping} ms**
                 ` },
 			])
-			.setFooter({ text: 'ah tak pierwsza komenda przepisana do discord.js v14' });
+			.setFooter({ text: 'Pij mleko, będziesz Nomzem.' });
 
 		const row = new ActionRowBuilder()
 			.addComponents(
@@ -60,6 +60,6 @@ module.exports = {
 					.setURL(package.homepage),
 			);
 
-		await interaction.reply({ embeds: [embed], components: [row], content: 'Siema. To jest (kolejny) rewrite Shiby (w końcu).\nJak na razie nie ma zbyt dużo komend, ale z każdą aktualizacją będą przybywać nowe.' });
+		await interaction.reply({ embeds: [embed], components: [row] });
 	},
 };
