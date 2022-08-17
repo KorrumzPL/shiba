@@ -19,6 +19,11 @@ module.exports = {
 			subcommand
 				.setName('ciastko')
 				.setDescription('Poproś bota o ciastko'),
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('cola')
+				.setDescription('Poproś bota o colę'),
 		),
 
 	async execute(interaction) {
@@ -27,7 +32,8 @@ module.exports = {
 			case 'depresso': {
 				if (dayjs().tz('Europe/Warsaw').hour() < 11 && dayjs().tz('Europe/Warsaw').hour() > 5) {
 					const attachment = new AttachmentBuilder().setFile('src/utils/depresso.png');
-					await interaction.editReply({ content: 'Proszę, oto twoja filiżanka depresso.', files: [attachment] });
+					await interaction.editReply({ files: [attachment] });
+					await interaction.channel.send({ content: 'Proszę, oto twoja filiżanka depresso.', tts: true });
 				}
 				else {
 					await interaction.editReply('Depresso wydaję tylko między godziną 6 a 11.');
@@ -36,7 +42,14 @@ module.exports = {
 			}
 			case 'ciastko': {
 				const attachment = new AttachmentBuilder().setFile('src/utils/ciastko.png');
-				await interaction.editReply({ content: 'Proszę, oto ciastko dla ciebie.', files: [attachment] });
+				await interaction.editReply({ files: [attachment] });
+				await interaction.channel.send({ content: 'Proszę, oto ciastko dla ciebie.', tts: true });
+				break;
+			}
+			case 'cola': {
+				const attachment = new AttachmentBuilder().setFile('src/utils/cola.png');
+				await interaction.editReply({ files: [attachment] });
+				await interaction.channel.send({ content: 'Proszę, oto twoja puszka coli.', tts: true });
 				break;
 			}
 		}
