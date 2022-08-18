@@ -25,6 +25,11 @@ module.exports = {
 			subcommand
 				.setName('bagietka')
 				.setDescription('Poproś bota o bagietkę'),
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('kremówka')
+				.setDescription('Poproś bota o kremówka'),
 		),
 
 	async execute(interaction) {
