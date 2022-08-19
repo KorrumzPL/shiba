@@ -1,6 +1,6 @@
 {
   "name": "shiba",
-  "version": "2022.726.0",
+  "version": "2022.819.0",
   "description": "Bot Discord z komendami 4fun.",
   "main": "src/index.js",
   "scripts": {
@@ -21,10 +21,10 @@
   "homepage": "https://github.com/Nomz420/shiba#readme",
   "dependencies": {
     "@discordjs/rest": "^1.0.1",
-    "@napi-rs/canvas": "^0.1.27",
+    "@napi-rs/canvas": "^0.1.28",
     "common-tags": "^1.8.2",
     "dayjs": "^1.11.5",
-    "discord-api-types": "^0.37.2",
+    "discord-api-types": "^0.37.3",
     "discord.js": "^14.2.0",
     "dotenv": "^16.0.1"
   },
