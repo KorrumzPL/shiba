@@ -1,4 +1,4 @@
-const { EmbedBuilder, InteractionType } = require('discord.js');
+const { EmbedBuilder, InteractionType, AttachmentBuilder } = require('discord.js');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -13,26 +13,53 @@ module.exports = {
 
 		// Modal do komemdy eval
 		if (interaction.type === InteractionType.ModalSubmit) {
+			const clean = async (text, client) => {
+				if (text && text.constructor.name == 'Promise') text = await text;
+				if (typeof text !== 'string') text = require('util').inspect(text, { depth: 1 });
+
+				text = text
+					.replace(/`/g, '`' + String.fromCharCode(8203))
+					.replace(/@/g, '@' + String.fromCharCode(8203));
+
+				text = text.replaceAll(client.token, '[KODY NUKLEARNE NIE RUSZAĆ]');
+
+				return text;
+			};
+
 			const colors = require('../utils/colors.json');
-			const toEval = interaction.fields.getTextInputValue('code');
+			const input = interaction.fields.getTextInputValue('code');
 			try {
-				const evaled = eval(toEval);
-				const embed = new EmbedBuilder()
-					.setColor(colors.green)
-					.addFields([
-						{ name: 'Input', value: `\`\`\`js\n${toEval}\n\`\`\`` },
-						{ name: 'Output', value: `\`\`\`xl\n${evaled}\n\`\`\`` },
-					]);
-				interaction.reply({ embeds: [embed] });
+				const evaled = eval(input);
+				const output = await clean(evaled, interaction.client);
+
+				if (output.length > 1024) {
+					const outtxt = new AttachmentBuilder(Buffer.from(output), { name: 'output.txt' });
+					const embed = new EmbedBuilder()
+						.setColor(colors.green)
+						.addFields([
+							{ name: 'Input', value: `\`\`\`js\n${input}\n\`\`\`` },
+							{ name: 'Output', value: 'Output jest w załączonym pliku.' },
+						]);
+					await interaction.reply({ embeds: [embed], files: [outtxt] });
+				}
+				else {
+					const embed = new EmbedBuilder()
+						.setColor(colors.green)
+						.addFields([
+							{ name: 'Input', value: `\`\`\`js\n${input}\n\`\`\`` },
+							{ name: 'Output', value: `\`\`\`xl\n${output}\n\`\`\`` },
+						]);
+					await interaction.reply({ embeds: [embed] });
+				}
 			}
 			catch (error) {
 				const embed = new EmbedBuilder()
 					.setColor(colors.red)
 					.addFields([
-						{ name: 'Input', value: `\`\`\`js\n${toEval}\n\`\`\`` },
+						{ name: 'Input', value: `\`\`\`js\n${input}\n\`\`\`` },
 						{ name: 'Output', value: `\`\`\`xl\n${error}\n\`\`\`` },
 					]);
-				interaction.reply({ embeds: [embed] });
+				await interaction.reply({ embeds: [embed] });
 			}
 			return;
 		}
