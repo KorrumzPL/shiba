@@ -11,7 +11,7 @@ module.exports = {
 			return;
 		}
 
-		const modal = new ModalBuilder({ customId: 'evalModal', title: '/eval' });
+		const modal = new ModalBuilder({ customId: 'eval', title: '/eval' });
 		const code = new TextInputBuilder()
 			.setCustomId('code')
 			.setLabel('Wprowadź kod do wykonania')

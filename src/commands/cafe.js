@@ -38,7 +38,7 @@ module.exports = {
 		const action = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setCustomId(interaction.options.getSubcommand())
+					.setCustomId(`cafe-${interaction.options.getSubcommand()}-${interaction.user.id}`)
 					.setLabel(cafe[`${interaction.options.getSubcommand()}0`])
 					.setStyle('Primary'),
 			);

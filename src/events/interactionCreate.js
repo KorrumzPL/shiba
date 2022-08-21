@@ -4,15 +4,19 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
 		// Komenda cafe
-		if (interaction.isButton()) {
+		if (interaction.isButton() && interaction.customId.includes('cafe-')) {
+			if (interaction.customId.split('-')[2] !== interaction.user.id) {
+				await interaction.reply({ content: 'To nie twoje. Nie ruszaj tego!', ephemeral: true });
+				return;
+			}
 			const cafe = require('../utils/cafe/cafe.json');
-			await interaction.update({ content: cafe[`${interaction.customId}1`].replace('user', `<@${interaction.user.id}>`), components: [] });
-			await interaction.followUp({ content: cafe[`${interaction.customId}2`], tts: true });
+			await interaction.update({ content: cafe[`${interaction.customId.split('-')[1]}1`].replace('user', `<@${interaction.user.id}>`), components: [] });
+			await interaction.followUp({ content: cafe[`${interaction.customId.split('-')[1]}2`], tts: true });
 			return;
 		}
 
-		// Modal do komemdy eval
-		if (interaction.type === InteractionType.ModalSubmit) {
+		// Komenda eval
+		if (interaction.type === InteractionType.ModalSubmit && interaction.customId === 'eval' && interaction.user.id === process.env.OWNER_ID) {
 			const clean = async (text, client) => {
 				if (text && text.constructor.name == 'Promise') text = await text;
 				if (typeof text !== 'string') text = require('util').inspect(text, { depth: 1 });
