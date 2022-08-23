@@ -8,7 +8,9 @@ module.exports = {
 		.addSubcommand(subcommand =>
 			subcommand
 				.setName('dice')
-				.setDescription('Losuje liczbę od 1 do 6'),
+				.setDescription('Losuje liczbę od 1 do 6, albo liczbę z podanego przedziału')
+				.addIntegerOption(option => option.setName('min').setDescription('Najniższa liczba do wylosowania').setRequired(false))
+				.addIntegerOption(option => option.setName('max').setDescription('Najwyższa liczba do wylosowania').setRequired(false)),
 		)
 		.addSubcommand(subcommand =>
 			subcommand
@@ -44,7 +46,12 @@ module.exports = {
 	async execute(interaction) {
 		switch (interaction.options.getSubcommand()) {
 		case 'dice': {
-			await interaction.reply(`Twoja wylosowana liczba to: ${Math.floor(Math.random() * 6) + 1}`);
+			if (interaction.options.getInteger('min') && interaction.options.getInteger('max')) {
+				await interaction.reply(`Wylosowałeś liczbę: ${Math.floor(Math.random() * (interaction.options.getInteger('max') - interaction.options.getInteger('min') + 1)) + interaction.options.getInteger('min')}`);
+			}
+			else {
+				await interaction.reply(`Wylosowałeś liczbę: ${Math.floor(Math.random() * 6) + 1}`);
+			}
 			break;
 		}
 		case '8ball': {
