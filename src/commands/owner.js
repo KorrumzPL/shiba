@@ -51,7 +51,6 @@ module.exports = {
 						if (submitted) {
 							await evaluate(submitted, submitted.fields.getTextInputValue('code'));
 						}
-
 						break;
 					}
 					case 'addactivity': {
@@ -99,7 +98,6 @@ module.exports = {
 								});
 							});
 						}
-
 						break;
 					}
 					}

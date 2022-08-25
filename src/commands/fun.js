@@ -41,6 +41,12 @@ module.exports = {
 				.setName('rockpaperscissors')
 				.setDescription('Zagraj z kimś w papier, kamień, nożyce')
 				.addUserOption(option => option.setName('osoba').setDescription('Osoba z którą chcesz zagrać').setRequired(true)),
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('rape')
+				.setDescription('Kolega prosił o tą komendę. Nie pytaj.')
+				.addUserOption(option => option.setName('osoba').setDescription('Podaj dowolnego użytkownika').setRequired(true)),
 		),
 
 	async execute(interaction) {
@@ -55,8 +61,8 @@ module.exports = {
 			break;
 		}
 		case '8ball': {
-			const { odpowiedzi } = require('../utils/8ball.json');
-			await interaction.reply(`Pytanie: **${interaction.options.getString('pytanie')}**\nOdpowiedź: ${odpowiedzi[Math.floor(Math.random() * odpowiedzi.length)]}`);
+			const { eightball } = require('../utils/replies.json');
+			await interaction.reply(`Pytanie: **${interaction.options.getString('pytanie')}**\nOdpowiedź: ${eightball[Math.floor(Math.random() * eightball.length)]}`);
 			break;
 		}
 		case 'cock': {
@@ -178,6 +184,12 @@ module.exports = {
 						}
 					});
 				});
+			break;
+		}
+		case 'rape': {
+			const { rape } = require('../utils/replies.json');
+			await interaction.reply(rape[Math.floor(Math.random() * rape.length)].replace('[serwer]', interaction.guild.name));
+			break;
 		}
 		}
 	},
