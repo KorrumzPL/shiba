@@ -43,7 +43,7 @@ module.exports = {
 				});
 				collector.on('end', async (_collected, reason) => {
 					if (reason === 'time') {
-						await interaction.editReply({ content: 'Nie otrzymano żadnego zamówienia w 20 sekund.', components: [] }).catch(console.error);
+						await interaction.editReply({ content: 'Nie otrzymano żadnego zamówienia w 20 sekund.', components: [] });
 					}
 				});
 			});

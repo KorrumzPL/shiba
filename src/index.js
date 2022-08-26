@@ -29,4 +29,6 @@ for (const file of eventFiles) {
 	}
 }
 
+process.on('unhandledRejection', console.error);
+
 client.login(process.env.TOKEN);

@@ -45,7 +45,7 @@ module.exports = {
 						await i.showModal(modal);
 
 						const submitted = await interaction.awaitModalSubmit({ time: 60000 }).catch(() => {
-							interaction.editReply({ content: 'Przestano oczekiwać na eval.' }).catch(console.error);
+							interaction.editReply({ content: 'Przestano oczekiwać na eval.' });
 						});
 
 						if (submitted) {
@@ -75,7 +75,7 @@ module.exports = {
 						await i.showModal(modal);
 
 						const submitted = await interaction.awaitModalSubmit({ time: 30000 }).catch(() => {
-							interaction.editReply('Przestano oczekiwać na nową aktywność').catch(console.error);
+							interaction.editReply('Przestano oczekiwać na nową aktywność');
 						});
 
 						if (submitted) {
@@ -104,7 +104,7 @@ module.exports = {
 				});
 				collector.on('end', async (_collected, reason) => {
 					if (reason === 'time') {
-						await interaction.editReply({ content: 'Do zobaczenia Nomziu.', components: [] }).catch(console.error);
+						await interaction.editReply({ content: 'Do zobaczenia Nomziu.', components: [] });
 					}
 				});
 			});

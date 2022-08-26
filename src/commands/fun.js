@@ -180,7 +180,7 @@ module.exports = {
 					});
 					collector.on('end', async (_collected, reason) => {
 						if (reason === 'time') {
-							await interaction.editReply({ content: 'Jeden z graczy nie dokonał wyboru na czas.', components: [] }).catch(console.error);
+							await interaction.editReply({ content: 'Jeden z graczy nie dokonał wyboru na czas.', components: [] });
 						}
 					});
 				});
