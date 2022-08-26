@@ -7,7 +7,7 @@ module.exports = {
 		.setDescription('TYLKO DLA WŁAŚCICIELA BOTA'),
 
 	async execute(interaction) {
-		if (interaction.user.id !== process.env.OWNER_ID) return interaction.reply({ content: 'Wypierda- znaczy się oddal się w podskokach.', ephemeral: true });
+		if (interaction.user.id !== process.env.OWNER_ID) return await interaction.reply({ content: 'Wypierda- znaczy się oddal się w podskokach.', ephemeral: true });
 
 		const actions = new ActionRowBuilder()
 			.addComponents(
@@ -27,11 +27,11 @@ module.exports = {
 			.then(inter => {
 				const collector = inter.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
 				collector.on('collect', async i => {
-					if (i.user.id !== process.env.OWNER_ID) return i.reply({ content: 'nie.', ephemeral: true });
+					if (i.user.id !== process.env.OWNER_ID) return await i.reply({ content: 'nie.', ephemeral: true });
 					switch (i.customId) {
 					case 'eval': {
 						collector.stop();
-						interaction.editReply({ content: 'Oczekiwanie na eval...', components: [] });
+						await interaction.editReply({ content: 'Oczekiwanie na eval...', components: [] });
 
 						const modal = new ModalBuilder({ customId: 'eval', title: 'Wykonaj kod' });
 						const code = new TextInputBuilder()
@@ -45,7 +45,7 @@ module.exports = {
 						await i.showModal(modal);
 
 						const submitted = await interaction.awaitModalSubmit({ time: 60000 }).catch(() => {
-							interaction.editReply({ content: 'Przestano oczekiwać na eval.' });
+							interaction.editReply({ content: 'Przestano oczekiwać na eval.' }).catch(console.error);
 						});
 
 						if (submitted) {
@@ -55,7 +55,7 @@ module.exports = {
 					}
 					case 'addactivity': {
 						collector.stop();
-						interaction.editReply({ content: 'Oczekiwanie na nową aktywność...', components: [] });
+						await interaction.editReply({ content: 'Oczekiwanie na nową aktywność...', components: [] });
 
 						const modal = new ModalBuilder({ customId: 'addactivity', title: 'Dodaj aktywność' });
 						const type = new TextInputBuilder()
@@ -75,7 +75,7 @@ module.exports = {
 						await i.showModal(modal);
 
 						const submitted = await interaction.awaitModalSubmit({ time: 30000 }).catch(() => {
-							interaction.editReply('Przestano oczekiwać na nową aktywność');
+							interaction.editReply('Przestano oczekiwać na nową aktywność').catch(console.error);
 						});
 
 						if (submitted) {
@@ -104,7 +104,7 @@ module.exports = {
 				});
 				collector.on('end', async (_collected, reason) => {
 					if (reason === 'time') {
-						await interaction.editReply({ content: 'Do zobaczenia Nomziu.', components: [] });
+						await interaction.editReply({ content: 'Do zobaczenia Nomziu.', components: [] }).catch(console.error);
 					}
 				});
 			});

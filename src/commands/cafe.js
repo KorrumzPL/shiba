@@ -28,7 +28,7 @@ module.exports = {
 			.then(inter => {
 				const collector = inter.createMessageComponentCollector({ time: 20000 });
 				collector.on('collect', async i => {
-					if (i.user.id !== interaction.user.id) return i.reply({ content: 'Ale to nie ty zamawiasz.', ephemeral: true });
+					if (i.user.id !== interaction.user.id) return await i.reply({ content: 'Ale to nie ty zamawiasz.', ephemeral: true });
 					await i.update({ content: `Zamówienie od <@${i.user.id}> zostało przyjęte.`, components: [] });
 					const attachment = new AttachmentBuilder().setFile(`src/utils/cafe/${i.values[0].split('-')[1]}.png`);
 					const action = new ActionRowBuilder()
@@ -43,7 +43,7 @@ module.exports = {
 				});
 				collector.on('end', async (_collected, reason) => {
 					if (reason === 'time') {
-						await interaction.editReply({ content: 'Nie otrzymano żadnego zamówienia w 20 sekund.', components: [] });
+						await interaction.editReply({ content: 'Nie otrzymano żadnego zamówienia w 20 sekund.', components: [] }).catch(console.error);
 					}
 				});
 			});

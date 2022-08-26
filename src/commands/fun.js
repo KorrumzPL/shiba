@@ -103,8 +103,8 @@ module.exports = {
 			break;
 		}
 		case 'rockpaperscissors': {
-			if (interaction.options.getUser('osoba').bot) return interaction.reply({ content: 'Nie możesz rozpocząć gry z botem!', ephemeral: true });
-			else if (interaction.user.id === interaction.options.getUser('osoba').id) return interaction.reply({ content: 'Nie możesz grać z samym sobą!', ephemeral: true });
+			if (interaction.options.getUser('osoba').bot) return await interaction.reply({ content: 'Nie możesz rozpocząć gry z botem!', ephemeral: true });
+			else if (interaction.user.id === interaction.options.getUser('osoba').id) return await interaction.reply({ content: 'Nie możesz grać z samym sobą!', ephemeral: true });
 
 			const gamers = [interaction.user.id, interaction.options.getUser('osoba').id];
 			const emojis = {
@@ -166,8 +166,8 @@ module.exports = {
 				.then(inter => {
 					const collector = inter.createMessageComponentCollector({ time: 15000 });
 					collector.on('collect', async i => {
-						if (!gamers.includes(i.user.id)) return i.reply({ content: 'Ale ty przecież nie grasz.', ephemeral: true });
-						else if (choices.hasOwnProperty(i.user.id)) return i.reply({ content: 'Dokonałeś już wyboru.', ephemeral: true });
+						if (!gamers.includes(i.user.id)) return await i.reply({ content: 'Ale ty przecież nie grasz.', ephemeral: true });
+						else if (choices.hasOwnProperty(i.user.id)) return await i.reply({ content: 'Dokonałeś już wyboru.', ephemeral: true });
 
 						choices[i.user.id] = i.customId;
 						if (Object.keys(choices).length === 2) {
@@ -180,7 +180,7 @@ module.exports = {
 					});
 					collector.on('end', async (_collected, reason) => {
 						if (reason === 'time') {
-							await interaction.editReply({ content: 'Jeden z graczy nie dokonał wyboru na czas.', components: [] });
+							await interaction.editReply({ content: 'Jeden z graczy nie dokonał wyboru na czas.', components: [] }).catch(console.error);
 						}
 					});
 				});
