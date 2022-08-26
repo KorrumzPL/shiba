@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder, AttachmentBuilder, ButtonBuilder } = require('discord.js');
+const { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder, ComponentType, AttachmentBuilder, ButtonBuilder } = require('discord.js');
 const cafe = require('../utils/cafe/cafe.json');
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
 			return menu.push({
 				label: cafe[thing],
 				description: cafe[`${thing}-desc`],
-				value: `cafe-${thing}-${interaction.user.id}`,
+				value: thing,
 			});
 		});
 
@@ -24,28 +24,45 @@ module.exports = {
 					.setPlaceholder('Wybierz coś sobie')
 					.addOptions(menu),
 			);
+
 		await interaction.reply({ components: [select], fetchReply: true })
 			.then(inter => {
-				const collector = inter.createMessageComponentCollector({ time: 20000 });
-				collector.on('collect', async i => {
-					if (i.user.id !== interaction.user.id) return await i.reply({ content: 'Ale to nie ty zamawiasz.', ephemeral: true });
-					await i.update({ content: `Zamówienie od <@${i.user.id}> zostało przyjęte.`, components: [] });
-					const attachment = new AttachmentBuilder().setFile(`src/utils/cafe/${i.values[0].split('-')[1]}.png`);
-					const action = new ActionRowBuilder()
-						.addComponents(
-							new ButtonBuilder()
-								.setCustomId(`cafe-${i.values[0].split('-')[1]}-${i.user.id}`)
-								.setLabel(cafe[`${i.values[0].split('-')[1]}-use`])
-								.setStyle('Primary'),
-						);
-					await i.followUp({ content: cafe[`${i.values[0].split('-')[1]}-give`], files: [attachment], tts: true, components: [action] });
-					collector.stop();
-				});
-				collector.on('end', async (_collected, reason) => {
-					if (reason === 'time') {
-						await interaction.editReply({ content: 'Nie otrzymano żadnego zamówienia w 20 sekund.', components: [] });
-					}
-				});
+				const filter = i => {
+					if (i.user.id !== interaction.user.id) i.reply({ content: 'Ale to nie ty zamawiasz.', ephemeral: true });
+					return i.user.id === interaction.user.id;
+				};
+
+				inter.awaitMessageComponent({ filter: filter, componentType: ComponentType.SelectMenu, time: 20000 })
+					.then(async i => {
+						await i.update({ content: `Zamówienie od <@${i.user.id}> zostało przyjęte.`, components: [] });
+						const attachment = new AttachmentBuilder().setFile(`src/utils/cafe/${i.values[0]}.png`);
+						const action = new ActionRowBuilder()
+							.addComponents(
+								new ButtonBuilder()
+									.setCustomId(i.values[0])
+									.setLabel(cafe[`${i.values[0]}-use`])
+									.setStyle('Primary'),
+							);
+
+						await i.followUp({ content: cafe[`${i.values[0]}-give`], files: [attachment], tts: true, components: [action], fetchReply: true })
+							.then(inter2 => {
+								const filter2 = i2 => {
+									if (i2.user.id !== interaction.user.id) i2.reply({ content: 'To nie twoje. Nie ruszaj tego!', ephemeral: true });
+									return i2.user.id === interaction.user.id;
+								};
+
+								inter2.awaitMessageComponent({ filter: filter2, componentType: ComponentType.Button, time: 60000 })
+									.then(async i2 => {
+										await i2.update({ content: cafe[`${i2.customId}-using`].replace('[user]', `<@${i2.user.id}>`), components: [] });
+										await i2.followUp({ content: cafe[`${i2.customId}-used`], tts: true });
+									})
+									.catch(() => {
+										action.components[0].setDisabled(true).setLabel('No i się przeterminowało').setStyle('Danger');
+										inter2.edit({ components: [action] });
+									});
+							});
+					})
+					.catch(() => interaction.editReply({ content: 'Nie otrzymano żadnego zamówienia w 20 sekund.', components: [] }));
 			});
 	},
 };
