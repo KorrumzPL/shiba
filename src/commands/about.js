@@ -68,7 +68,7 @@ module.exports = {
 					.setURL(package.homepage),
 			);
 
-		await interaction.reply({ content: 'Siema. Jestem Shiba.', components: [row], fetchReply: true })
+		await interaction.reply({ content: 'Siema. Jestem Shiba. Zostałem stworzony przez Nomz#0630 i mam głównie komendy 4fun.', components: [row], fetchReply: true })
 			.then(inter => {
 				const filter = i => {
 					i.deferUpdate();
