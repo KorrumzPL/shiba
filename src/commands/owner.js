@@ -74,8 +74,8 @@ module.exports = {
 						modal.addComponents(firstActionRow, secondActionRow);
 						await i.showModal(modal);
 
-						const submitted = await interaction.awaitModalSubmit({ time: 30000 }).catch(() => {
-							interaction.editReply('Przestano oczekiwać na nową aktywność');
+						const submitted = await interaction.awaitModalSubmit({ time: 60000 }).catch(() => {
+							interaction.editReply('Przestano oczekiwać na nową aktywność.');
 						});
 
 						if (submitted) {
