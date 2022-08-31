@@ -14,10 +14,7 @@ module.exports = {
 		catch (error) {
 			console.error(error);
 			if (!interaction.channel) return;
-			await interaction.channel.send('Wystąpił błąd podczas wykonywania komendy.')
-				.then(message => {
-					setTimeout(() => message.delete(), 5000);
-				});
+			await interaction.channel.send('Wystąpił błąd podczas wykonywania komendy. Spróbuj ponownie.\nJeśli nadal coś nie działa, zgłoś błąd na Shiba Support lub do Nomz#0630.');
 		}
 	},
 };
