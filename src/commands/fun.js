@@ -74,14 +74,25 @@ module.exports = {
 		}
 		case 'zgon': {
 			await interaction.deferReply();
+
+			const applyText = (canvas, text) => {
+				const context = canvas.getContext('2d');
+				let fontSize = 80;
+				do {
+					context.font = `${fontSize -= 10}px Comic Sans MS`;
+				} while (context.measureText(text).width > canvas.width);
+				return context.font;
+			};
+
 			const dayjs = require('dayjs');
-			const Canvas = require('@napi-rs/canvas');
-			const canvas = Canvas.createCanvas(794, 1123);
+			const { createCanvas, GlobalFonts, Image } = require('@napi-rs/canvas');
+			GlobalFonts.registerFromPath('../utils/comic-sans-ms.ttf', 'Comic Sans MS');
+			const canvas = createCanvas(794, 1123);
 			const ctx = canvas.getContext('2d');
-			const akt = new Canvas.Image();
+			const akt = new Image();
 
 			// https://twitter.com/TygodnikNIE/status/1549299100310462464
-			ctx.fillStyle = '#ffffff';
+			ctx.fillStyle = '#ffffff' ;
 			ctx.fillRect(0, 0, 794, 1123);
 			ctx.drawImage(akt, 0, 0, canvas.width, canvas.height);
 			ctx.textAlign = 'center';
@@ -90,12 +101,12 @@ module.exports = {
 			ctx.fillText('ALBAŃSKI AKT ZGONU', 397, 100);
 			ctx.font = '48px Comic Sans MS';
 			ctx.fillText(`Dnia ${dayjs().format('DD.MM.YYYY')} r. wziął i umarł`, 397, 400);
-			ctx.font = '60px Comic Sans MS';
+			ctx.font = applyText(canvas, interaction.options.getUser('martwy').tag);
 			ctx.fillText(interaction.options.getUser('martwy').tag, 397, 550);
-			ctx.font = '32px Comic Sans MS';
-			ctx.fillText('Zatwierdzam', 590, 900);
 			ctx.font = '40px Comic Sans MS';
-			ctx.fillText('Shiba Nomzowski', 590, 1000);
+			ctx.fillText('Zatwierdzam', 397, 900);
+			ctx.font = '50px Comic Sans MS';
+			ctx.fillText('Shiba Nomzowski', 397, 1000);
 
 			const attachment = new AttachmentBuilder(canvas.toBuffer('image/png'), { name: 'akt_zgonu.png' });
 			await interaction.editReply({ files: [attachment] });
