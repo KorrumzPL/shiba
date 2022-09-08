@@ -7,7 +7,7 @@ const rock_paper_scissors = async (interaction) => {
 	const players = [interaction.user.id, interaction.options.getUser('osoba').id];
 	const emojis = {
 		'rock': '🪨',
-		'paper': '📄',
+		'paper': '🧻',
 		'scissors': '✂️',
 	};
 	const choices = new Object();
@@ -82,7 +82,7 @@ const rock_paper_scissors = async (interaction) => {
 			});
 			collector.on('end', async (_collected, reason) => {
 				if (reason === 'time') {
-					await interaction.editReply({ content: 'Jeden z graczy nie dokonał wyboru na czas.', components: [buttons] });
+					await interaction.editReply({ content: 'Jeden z graczy nie dokonał wyboru na czas.', components: [] });
 				}
 			});
 		});
