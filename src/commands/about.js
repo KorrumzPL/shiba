@@ -52,12 +52,12 @@ module.exports = {
 					.setStyle('Primary')
 					.setCustomId('stats'),
 				new ButtonBuilder()
-					.setLabel('Zaproś bota')
+					.setLabel('Dodaj bota')
 					.setEmoji('✅')
 					.setStyle('Link')
-					.setURL(`https://discord.com/api/oauth2/authorize?client_id=${interaction.client.application.id}&permissions=1644971949559&scope=bot`),
+					.setURL(`https://discord.com/api/oauth2/authorize?client_id=${interaction.client.application.id}&permissions=${process.env.PERMISSIONS}&scope=bot`),
 				new ButtonBuilder()
-					.setLabel('Shiba Support')
+					.setLabel('Serwer bota')
 					.setEmoji('👥')
 					.setStyle('Link')
 					.setURL('https://discord.gg/QJaXP6GqEy'),

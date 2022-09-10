@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder, ComponentType, AttachmentBuilder, ButtonBuilder } = require('discord.js');
+const { PermissionsBitField, SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder, ComponentType, AttachmentBuilder, ButtonBuilder } = require('discord.js');
 const cafe = require('../utils/cafe/cafe.json');
 
 module.exports = {
@@ -7,6 +7,11 @@ module.exports = {
 		.setDescription('nom café'),
 
 	async execute(interaction) {
+		if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.SendTTSMessages)) {
+			const attachment = new AttachmentBuilder().setFile('src/utils/enable_tts.gif');
+			return await interaction.reply({ content: 'Daj mi permisje do wysyłania wiadomości text-to-speech albo odgryzę ci chu-', files: [attachment] });
+		}
+
 		const menu = [];
 		const things = Object.keys(cafe).filter(thing => !thing.includes('-'));
 		things.forEach(thing => {
