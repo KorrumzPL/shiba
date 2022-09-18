@@ -60,7 +60,7 @@ module.exports = {
 					.setLabel('Serwer bota')
 					.setEmoji('👥')
 					.setStyle('Link')
-					.setURL('https://discord.gg/QJaXP6GqEy'),
+					.setURL(`https://discord.gg/${process.env.INVITE}`),
 				new ButtonBuilder()
 					.setLabel('GitHub')
 					.setEmoji('💾')
