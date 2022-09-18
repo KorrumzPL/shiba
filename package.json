@@ -24,13 +24,13 @@
     "@napi-rs/canvas": "^0.1.29",
     "common-tags": "^1.8.2",
     "dayjs": "^1.11.5",
-    "discord-api-types": "^0.37.5",
+    "discord-api-types": "^0.37.10",
     "discord.js": "^14.3.0",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.2"
   },
   "devDependencies": {
-    "eslint": "^8.23.0",
-    "nodemon": "^2.0.19"
+    "eslint": "^8.23.1",
+    "nodemon": "^2.0.20"
   },
   "nodemonConfig": {
     "ignore": ["src/utils/activities.json"]
