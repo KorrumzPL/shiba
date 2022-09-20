@@ -1,7 +1,7 @@
 const { ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 const rock_paper_scissors = async (interaction) => {
-	if (interaction.options.getUser('osoba').bot) return await interaction.reply({ content: 'Nie możesz rozpocząć gry z botem!', ephemeral: true });
+	if (interaction.options.getUser('osoba').bot && interaction.options.getUser('osoba').id !== interaction.client.user.id) return await interaction.reply({ content: 'Nie możesz rozpocząć gry z botem!\nJakby co, możesz zagrać ze mną.', ephemeral: true });
 	else if (interaction.user.id === interaction.options.getUser('osoba').id) return await interaction.reply({ content: 'Nie możesz grać z samym sobą!', ephemeral: true });
 
 	const players = [interaction.user.id, interaction.options.getUser('osoba').id];
@@ -71,6 +71,12 @@ const rock_paper_scissors = async (interaction) => {
 				else if (Object.prototype.hasOwnProperty.call(choices, i.user.id)) return await i.reply({ content: 'Dokonałeś już wyboru.', ephemeral: true });
 
 				choices[i.user.id] = i.customId;
+				if (players[1] === i.client.user.id) {
+					const choice = ['rock', 'paper', 'scissors'];
+					const bot = Math.floor(Math.random() * 3);
+					choices[i.client.user.id] = choice[bot];
+				}
+
 				if (Object.keys(choices).length === 2) {
 					collector.stop();
 					await i.update({ content: `<@${players[0]}> wybrał(a) ${emojis[choices[players[0]]]}\n<@${players[1]}> wybrał(a) ${emojis[choices[players[1]]]}\n\n${winner()}`, components: [] });
