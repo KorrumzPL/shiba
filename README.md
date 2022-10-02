@@ -6,4 +6,5 @@
 <img src="https://img.shields.io/github/license/Nomz420/shiba"/>
 </div>
 
-### Później ogarnę to README 2.0
+### [Zaproś bota na swój serwer](https://discord.com/api/oauth2/authorize?client_id=485847657001254933&permissions=517647752256&scope=bot)
+### Później ogarnę to README 3.0&trade;
