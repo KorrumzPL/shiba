@@ -40,6 +40,7 @@ module.exports = {
 					{ name: 'Działanie bota', value: stripIndent`
 						Uptime: **${days}d, ${hours}h, ${minutes}m ${seconds}s**
 						Ping: **${interaction.client.ws.ping} ms**
+						Łączne użycie RAMu: **${Math.round((process.memoryUsage().rss / 1024 / 1024) * 100) / 100} MB**
 					` },
 				]);
 			return await interaction.editReply({ content: '', components: [], embeds: [embed] });
