@@ -92,7 +92,7 @@ module.exports = {
 			const akt = new Image();
 
 			// https://twitter.com/TygodnikNIE/status/1549299100310462464
-			ctx.fillStyle = '#ffffff' ;
+			ctx.fillStyle = '#ffffff';
 			ctx.fillRect(0, 0, 794, 1123);
 			ctx.drawImage(akt, 0, 0, canvas.width, canvas.height);
 			ctx.textAlign = 'center';

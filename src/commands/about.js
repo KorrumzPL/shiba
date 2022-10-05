@@ -1,7 +1,8 @@
-// embed zainspirowany komendą info z AmpersandBota (Ciach nie wkurwiaj się XD)
-
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, ComponentType } = require('discord.js');
-const { stripIndent } = require('common-tags');
+const { ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
+const { createCanvas, Image, loadImage } = require('@napi-rs/canvas');
+const dayjs = require('dayjs');
+const duration = require('dayjs/plugin/duration');
+dayjs.extend(duration);
 const package = require(process.env.npm_package_json);
 
 module.exports = {
@@ -10,48 +11,47 @@ module.exports = {
 		.setDescription('Informacje o Shibie'),
 
 	async execute(interaction) {
-		const stats = async () => {
-			const colors = require('../utils/colors.json');
-			const dayjs = require('dayjs');
-			const utc = require('dayjs/plugin/utc');
-			const timezone = require('dayjs/plugin/timezone');
-			dayjs.extend(utc);
-			dayjs.extend(timezone);
+		await interaction.deferReply();
 
-			const members = interaction.client.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-			const days = Math.floor(interaction.client.uptime / 86400000);
-			const hours = Math.floor(interaction.client.uptime / 3600000) % 24;
-			const minutes = Math.floor(interaction.client.uptime / 60000) % 60;
-			const seconds = Math.floor(interaction.client.uptime / 1000) % 60;
+		const canvas = createCanvas(1256, 512);
+		const ctx = canvas.getContext('2d');
+		const stats = new Image();
 
-			const embed = new EmbedBuilder()
-				.setColor(colors.blue)
-				.setAuthor({ name: interaction.client.user.tag, iconURL: interaction.client.user.avatarURL() })
-				.addFields([
-					{ name: 'Wersje', value: stripIndent`
-						Shiba: **${process.env.npm_package_version}**
-						Node.js: **${process.versions.node}**
-						discord.js: **${package.dependencies['discord.js'].split('^').join('')}**
-					` },
-					{ name: 'Statystyki', value: stripIndent`
-						Serwery / użytkownicy: **${interaction.client.guilds.cache.size} / ${members}**
-						Data utworzenia bota: **${dayjs.tz(interaction.client.user.createdAt, 'Europe/Warsaw').format('DD/MM/YYYY HH:mm:ss')}**
-					` },
-					{ name: 'Działanie bota', value: stripIndent`
-						Uptime: **${days}d, ${hours}h, ${minutes}m ${seconds}s**
-						Ping: **${interaction.client.ws.ping} ms**
-						Łączne użycie RAMu: **${Math.round((process.memoryUsage().rss / 1024 / 1024) * 100) / 100} MB**
-					` },
-				]);
-			return await interaction.editReply({ content: '', components: [], embeds: [embed] });
-		};
+		let ziemniak;
+		if (interaction.client.ws.ping > 200) ziemniak = await loadImage('src/utils/ziemniak_fire.png');
+		else ziemniak = await loadImage('src/utils/ziemniak.png');
+
+		ctx.fillStyle = '#36393E';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.drawImage(stats, 0, 0, canvas.width, canvas.height);
+		ctx.drawImage(ziemniak, 750, 70, ziemniak.width / 1.5, ziemniak.height / 1.5);
+		ctx.fillStyle = '#ffffff';
+		ctx.textAlign = 'center';
+		ctx.font = 'bold 32px Arial';
+		ctx.fillText('Shiba', 150, 440);
+		ctx.fillText('Node.js', 350, 440);
+		ctx.fillText('discord.js', 550, 440);
+		ctx.font = '32px Arial';
+		ctx.fillText(`${process.env.npm_package_version}`, 150, 480);
+		ctx.fillText(`${process.versions.node}`, 350, 480);
+		ctx.fillText(`${package.dependencies['discord.js'].split('^').join('')}`, 550, 480);
+		ctx.font = 'bold 48px Arial';
+		ctx.fillText('Serwery', 150, 60);
+		ctx.fillText('Użytkownicy', 450, 60);
+		ctx.fillText('Ping', 750, 60);
+		ctx.fillText('RAM', 200, 250);
+		ctx.fillText('Uptime', 550, 250);
+		ctx.font = '48px Arial';
+		ctx.fillText(`${interaction.client.guilds.cache.size}`, 150, 120);
+		ctx.fillText(`${interaction.client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)}`, 450, 120);
+		ctx.fillText(`${interaction.client.ws.ping} ms`, 750, 120);
+		ctx.fillText(`${Math.round((process.memoryUsage().rss / 1024 / 1024) * 100) / 100} MB`, 200, 310);
+		ctx.fillText(`${dayjs.duration(interaction.client.uptime).format('D[d] H[h] m[m] s[s]')}`, 550, 310);
+
+		const attachment = new AttachmentBuilder(canvas.toBuffer('image/png'), { name: 'statystyki.png' });
 
 		const row = new ActionRowBuilder()
 			.addComponents(
-				new ButtonBuilder()
-					.setLabel('Statystyki')
-					.setStyle('Primary')
-					.setCustomId('stats'),
 				new ButtonBuilder()
 					.setLabel('Dodaj bota')
 					.setEmoji('✅')
@@ -69,19 +69,6 @@ module.exports = {
 					.setURL(package.homepage),
 			);
 
-		await interaction.reply({ content: 'Siema. Jestem Shiba. Zostałem stworzony przez Nomz#0630 i mam głównie komendy 4fun.', components: [row], fetchReply: true })
-			.then(inter => {
-				const filter = i => {
-					i.deferUpdate();
-					return i.user.id === interaction.user.id;
-				};
-
-				inter.awaitMessageComponent({ filter, componentType: ComponentType.Button, time: 20000 })
-					.then(async () => await stats())
-					.catch(() => {
-						row.components[0].setDisabled(true);
-						interaction.editReply({ components: [row] });
-					});
-			});
+		await interaction.editReply({ components: [row], files: [attachment] });
 	},
 };
