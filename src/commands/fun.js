@@ -46,6 +46,11 @@ module.exports = {
 			subcommand
 				.setName('rozwal-klawiature')
 				.setDescription('Shiba specjalnie dla ciebie walnie w klawiaturę parę razy'),
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('awesomecar')
+				.setDescription('Losowe auto z https://awesomecars.neocities.org'),
 		),
 
 	async execute(interaction) {
@@ -124,6 +129,10 @@ module.exports = {
 				result += characters.charAt(Math.floor(Math.random() * characters.length));
 			}
 			await interaction.reply(result);
+			break;
+		}
+		case 'awesomecar': {
+			await interaction.reply(`https://awesomecars.neocities.org/ver2/${Math.floor(Math.random() * 1927) + 1}.mp4`);
 			break;
 		}
 		}
