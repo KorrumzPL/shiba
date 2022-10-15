@@ -7,4 +7,7 @@
 </div>
 
 ### [Zaproś bota na swój serwer](https://discord.com/api/oauth2/authorize?client_id=485847657001254933&permissions=517647752256&scope=bot)
+
+## UWAGA! NIE BIORĘ ODPOWIEDZIALNOŚCI ZA WSZELKIE SZKODY NA TWOJEJ PSYCHICE SPOWODOWANE JAKOŚCIĄ KODU!
+
 ### Później ogarnę to README 3.0&trade;
