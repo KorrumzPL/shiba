@@ -1,5 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
-const { createCanvas, Image, loadImage } = require('@napi-rs/canvas');
+const { GlobalFonts, createCanvas, Image, loadImage } = require('@napi-rs/canvas');
 const dayjs = require('dayjs');
 const duration = require('dayjs/plugin/duration');
 dayjs.extend(duration);
@@ -13,6 +13,7 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply();
 
+		GlobalFonts.registerFromPath('../utils/arial.ttf', 'Arial');
 		const canvas = createCanvas(1256, 512);
 		const ctx = canvas.getContext('2d');
 		const stats = new Image();
