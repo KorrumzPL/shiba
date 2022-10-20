@@ -44,11 +44,6 @@ module.exports = {
 		)
 		.addSubcommand(subcommand =>
 			subcommand
-				.setName('rozwal-klawiature')
-				.setDescription('Shiba specjalnie dla ciebie walnie w klawiaturę parę razy'),
-		)
-		.addSubcommand(subcommand =>
-			subcommand
 				.setName('awesomecar')
 				.setDescription('Losowe auto z https://awesomecars.neocities.org'),
 		),
@@ -120,15 +115,6 @@ module.exports = {
 		case 'rape': {
 			const { rape } = require('../utils/replies.json');
 			await interaction.reply(rape[Math.floor(Math.random() * rape.length)].replace('[serwer]', interaction.guild.name));
-			break;
-		}
-		case 'rozwal-klawiature': {
-			let result = '';
-			const characters = ' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ';
-			for (let i = 0; i < 70; i++) {
-				result += characters.charAt(Math.floor(Math.random() * characters.length));
-			}
-			await interaction.reply(result);
 			break;
 		}
 		case 'awesomecar': {

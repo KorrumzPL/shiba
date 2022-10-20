@@ -32,12 +32,5 @@
 	"kremówka-give": "Proszę, oto twoja kremówka... czemu to pachnie mięsem?",
 	"kremówka-use": "Zjedz kremówkę",
 	"kremówka-using": "*[user] je kremówkę*",
-	"kremówka-used": "Zjadłeś kremówkę. Dziwnie pachniała psem, ale była przepyszna.",
-
-	"proszek": "Dziwny proszek",
-	"proszek-desc": "Spokojnie, to nie narkotyki, to zwykła mąka uwierz mi ziomek",
-	"proszek-give": "Ciiiiiiii...  *daje Ci towar*",
-	"proszek-use": "Wciągnij proszek",
-	"proszek-using": "*[user] zażywa \"sproszkowanych łez rosjan\"*",
-	"proszek-used": "Wciągnąłeś podejrzany proszek. Zaraz po tym poczułeś, że możesz zrobić wszystko. Dlatego postanowiłeś skoczyć z dziewiątego piętra. Nie pykło."
+	"kremówka-used": "Zjadłeś kremówkę. Dziwnie pachniała psem, ale była przepyszna."
 }
