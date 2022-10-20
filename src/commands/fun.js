@@ -1,4 +1,3 @@
-/* eslint-disable no-prototype-builtins */
 const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
 
 module.exports = {
@@ -60,7 +59,7 @@ module.exports = {
 			break;
 		}
 		case '8ball': {
-			const { eightball } = require('../utils/replies.json');
+			const { eightball } = require('../utils/strings/replies.json');
 			await interaction.reply(`Pytanie: **${interaction.options.getString('pytanie')}**\nOdpowiedź: ${eightball[Math.floor(Math.random() * eightball.length)]}`);
 			break;
 		}
@@ -86,7 +85,7 @@ module.exports = {
 
 			const dayjs = require('dayjs');
 			const { createCanvas, GlobalFonts, Image } = require('@napi-rs/canvas');
-			GlobalFonts.registerFromPath('../utils/comic-sans-ms.ttf', 'Comic Sans MS');
+			GlobalFonts.registerFromPath('../utils/fonts/comic-sans-ms.ttf', 'Comic Sans MS');
 			const canvas = createCanvas(794, 1123);
 			const ctx = canvas.getContext('2d');
 			const akt = new Image();
@@ -113,7 +112,7 @@ module.exports = {
 			break;
 		}
 		case 'rape': {
-			const { rape } = require('../utils/replies.json');
+			const { rape } = require('../utils/strings/replies.json');
 			await interaction.reply(rape[Math.floor(Math.random() * rape.length)].replace('[serwer]', interaction.guild.name));
 			break;
 		}

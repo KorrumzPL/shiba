@@ -1,5 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, ModalBuilder, TextInputBuilder, ComponentType, SlashCommandBuilder } = require('discord.js');
-const { evaluate } = require('../utils/evaluate');
+const { evaluate } = require('../utils/functions/evaluate');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -80,7 +80,7 @@ module.exports = {
 
 						if (submitted) {
 							const fs = require('fs');
-							const file = 'src/utils/activities.json';
+							const file = 'src/utils/strings/activities.json';
 
 							fs.readFile(file, async (error, data) => {
 								if (error) throw error;

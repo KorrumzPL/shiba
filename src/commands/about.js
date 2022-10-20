@@ -13,14 +13,14 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply();
 
-		GlobalFonts.registerFromPath('../utils/arial.ttf', 'Arial');
+		GlobalFonts.registerFromPath('../utils/fonts/arial.ttf', 'Arial');
 		const canvas = createCanvas(1256, 512);
 		const ctx = canvas.getContext('2d');
 		const stats = new Image();
 
 		let ziemniak;
-		if (interaction.client.ws.ping > 200) ziemniak = await loadImage('src/utils/ziemniak_fire.png');
-		else ziemniak = await loadImage('src/utils/ziemniak.png');
+		if (interaction.client.ws.ping > 200) ziemniak = await loadImage('src/utils/images/ziemniak_fire.png');
+		else ziemniak = await loadImage('src/utils/images/ziemniak.png');
 
 		ctx.fillStyle = '#36393E';
 		ctx.fillRect(0, 0, canvas.width, canvas.height);

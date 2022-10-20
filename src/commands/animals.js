@@ -1,6 +1,6 @@
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
-const colors = require('../utils/colors.json');
-const { animals } = require('../utils/cache');
+const colors = require('../utils/strings/colors.json');
+const { animals } = require('../utils/functions/animals');
 
 module.exports = {
 	data: new SlashCommandBuilder()

@@ -1,6 +1,6 @@
 const { ActivityType } = require('discord.js');
 const { readFile } = require('fs');
-const { updateImages } = require('../utils/cache');
+const { updateImages } = require('../utils/functions/animals');
 const dayjs = require('dayjs');
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
 		console.log(`${dayjs().format('DD/MM/YYYY HH:MM:ss')} | Zalogowano jako ${client.user.tag}`);
 
 		(function changeActivity() {
-			readFile('src/utils/activities.json', (error, data) => {
+			readFile('src/utils/strings/activities.json', (error, data) => {
 				if (error) throw error;
 				const activities = JSON.parse(data);
 				const type = Object.keys(activities)[Math.floor(Math.random() * Object.keys(activities).length)];
