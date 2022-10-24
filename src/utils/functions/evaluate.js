@@ -14,7 +14,7 @@ const evaluate = async (interaction, code) => {
 		return text;
 	};
 
-	const colors = require('./colors.json');
+	const colors = require('../strings/colors.json');
 	const input = code;
 	try {
 		const evaled = eval(input);

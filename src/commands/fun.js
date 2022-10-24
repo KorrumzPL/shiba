@@ -84,8 +84,7 @@ module.exports = {
 			};
 
 			const dayjs = require('dayjs');
-			const { createCanvas, GlobalFonts, Image } = require('@napi-rs/canvas');
-			GlobalFonts.registerFromPath('../utils/fonts/comic-sans-ms.ttf', 'Comic Sans MS');
+			const { createCanvas, Image } = require('@napi-rs/canvas');
 			const canvas = createCanvas(794, 1123);
 			const ctx = canvas.getContext('2d');
 			const akt = new Image();
