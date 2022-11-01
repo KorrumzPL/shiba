@@ -1,36 +1,60 @@
 {
 	"cola": "Puszka nom coli",
+	"cola-emoji": "🧋",
 	"cola-desc": "Najlepsza cola na świecie - Magda Gessler, 1939",
 	"cola-give": "Proszę, oto twoja puszka coli.",
 	"cola-use": "Wypij colę",
 	"cola-using": "*[user] pije nom colę*",
-	"cola-used": "Wypiłeś nom colę. Czujesz, że twoje nerki za niedługo zaczną wołać o ratunek.",
+	"cola-used": [
+		"Wypiłeś nom colę. Czujesz, że twoje nerki za niedługo zaczną wołać o ratunek.",
+		"Wypiłeś nom colę. Twoje nerki zaczynają śpiewać Rotę i przygotowywują się do wojny.",
+		"Wypiłeś nom colę. Cały następny dzień spędzasz na kiblu.",
+		"Wypiłeś nom colę. Odblokowałeś nowy kolor moczu: krwistoczerwony."
+	],
 
 	"depresso": "Filiżanka depresso",
+	"depresso-emoji": "☕",
 	"depresso-desc": "+10 do deprechy i chujowych myśli",
  	"depresso-give": "Proszę, oto twoja filiżanka depresso.",
 	"depresso-use": "Wypij depresso",
 	"depresso-using": "*[user] pije depresso*",
-	"depresso-used": "Wypiłeś depresso. Przypominasz sobie nagle o tej jednej zjebanej rzeczy, którą zrobiłeś kilka lat temu.",
+	"depresso-used": [
+		"Wypiłeś depresso. Przypominasz sobie nagle o tej jednej zjebanej rzeczy, którą zrobiłeś kilka lat temu.",
+		"Wypiłeś depresso. Dostajesz +10 do bycia emo nastolatkiem.",
+		"Wypiłeś depresso. Głosy w twojej głowie nasilają się."
+	],
 
 	"ciastko": "Ciastko z czekoladą",
+	"ciastko-emoji": "🍪",
 	"ciastko-desc": "Prawdopodobnie najnormalniejsza rzecz na tej liście",
 	"ciastko-give": "Proszę, oto ciastko dla ciebie.",
 	"ciastko-use": "Zjedz ciastko",
 	"ciastko-using": "*[user] je ciastko*",
-	"ciastko-used": "Zjadłeś ciastko. Było pyszne.",
+	"ciastko-used": [
+		"Zjadłeś ciastko. Było pyszne."
+	],
 
 	"bagietka": "Bagietka",
+	"bagietka-emoji": "🥖",
 	"bagietka-desc": "Bagietka prosto z Francji",
 	"bagietka-give": "Proszę, oto... co to za bagietka???",
 	"bagietka-use": "Zjedz bagietkę",
 	"bagietka-using": "*[user] je bagietkę WRAZ Z BERETEM, WĄSEM I FLAGĄ????*",
-	"bagietka-used": "...jak ty to zjadłeś?",
+	"bagietka-used": [
+		"...jak ty to zjadłeś?",
+		"Pozostawię to bez komentarza...",
+		"co...?"
+	],
 
 	"kremówka": "Kremówka",
+	"kremówka-emoji": "🍰",
 	"kremówka-desc": "Papieska, rzułta, shibówka eeee znaczy kremówka",
-	"kremówka-give": "Proszę, oto twoja kremówka... czemu to pachnie mięsem?",
+	"kremówka-give": "Proszę, oto twoja kremówka... czemu to pachnie psem?",
 	"kremówka-use": "Zjedz kremówkę",
 	"kremówka-using": "*[user] je kremówkę*",
-	"kremówka-used": "Zjadłeś kremówkę. Dziwnie pachniała psem, ale była przepyszna."
+	"kremówka-used": [
+		"Zjadłeś kremówkę. Dziwnie pachniała psem, ale była przepyszna.",
+		"Zjadłeś kremówkę. Pomijając sierść jakiegos psa *(czekaj co?)*, kremówka 11/10.",
+		"Zjadłeś kremówkę. Najbardziej smakowały ci w niej kawałki mięsa."
+	]
 }
