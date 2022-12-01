@@ -59,8 +59,7 @@ module.exports = {
 										await i2.update({ content: cafe[`${i2.customId}-using`].replace('[user]', `<@${i2.user.id}>`), components: [] });
 										await i2.followUp({ content: cafe[`${i2.customId}-used`][Math.floor(Math.random() * cafe[`${i2.customId}-used`].length)] });
 									})
-									.catch((err) => {
-										console.log(err);
+									.catch(() => {
 										action.components[0].setDisabled(true).setLabel('No i się przeterminowało').setStyle('Danger');
 										inter2.edit({ components: [action] });
 									});
