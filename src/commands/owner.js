@@ -1,5 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder, ModalBuilder, TextInputBuilder, ComponentType, SlashCommandBuilder } = require('discord.js');
-const { evaluate } = require('../utils/functions/evaluate');
+const { ActionRowBuilder, ButtonBuilder, ModalBuilder, TextInputBuilder, ComponentType, SlashCommandBuilder, SelectMenuBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -7,7 +6,7 @@ module.exports = {
 		.setDescription('TYLKO DLA WŁAŚCICIELA BOTA'),
 
 	async execute(interaction) {
-		if (interaction.user.id !== process.env.OWNER_ID) return await interaction.reply({ content: 'Wypierda- znaczy się oddal się w podskokach.', ephemeral: true });
+		if (interaction.user.id !== process.env.OWNER_ID) return await interaction.reply({ content: 'Czego ty tu niby chcesz? Nie ruszaj tego.', ephemeral: true });
 
 		const actions = new ActionRowBuilder()
 			.addComponents(
@@ -21,6 +20,12 @@ module.exports = {
 					.setCustomId('addactivity')
 					.setLabel('Dodaj aktywność')
 					.setStyle('Success'),
+			)
+			.addComponents(
+				new ButtonBuilder()
+					.setCustomId('delactivity')
+					.setLabel('Usuń aktywność')
+					.setStyle('Danger'),
 			);
 
 		await interaction.reply({ content: 'Witaj Nomziu.', components: [actions], fetchReply: true })
@@ -28,9 +33,9 @@ module.exports = {
 				const collector = inter.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
 				collector.on('collect', async i => {
 					if (i.user.id !== process.env.OWNER_ID) return await i.reply({ content: 'nie.', ephemeral: true });
+					collector.stop();
 					switch (i.customId) {
 					case 'eval': {
-						collector.stop();
 						await interaction.editReply({ content: 'Oczekiwanie na eval...', components: [] });
 
 						const modal = new ModalBuilder({ customId: 'eval', title: 'Wykonaj kod' });
@@ -49,12 +54,12 @@ module.exports = {
 						});
 
 						if (submitted) {
+							const { evaluate } = require('../utils/functions/evaluate');
 							await evaluate(submitted, submitted.fields.getTextInputValue('code'));
 						}
 						break;
 					}
 					case 'addactivity': {
-						collector.stop();
 						await interaction.editReply({ content: 'Oczekiwanie na nową aktywność...', components: [] });
 
 						const modal = new ModalBuilder({ customId: 'addactivity', title: 'Dodaj aktywność' });
@@ -79,25 +84,56 @@ module.exports = {
 						});
 
 						if (submitted) {
-							const fs = require('fs');
-							const file = 'src/utils/strings/activities.json';
-
-							fs.readFile(file, async (error, data) => {
-								if (error) throw error;
-								const activities = JSON.parse(data);
-								try {
-									activities[submitted.fields.getTextInputValue('type')].push(submitted.fields.getTextInputValue('content'));
-								}
-								catch (err) {
-									await submitted.update('Coś nie pykło. Czy wpisałeś wszystko poprawnie?');
-									return;
-								}
-								fs.writeFile(file, JSON.stringify(activities, null, 4), async (err) => {
-									if (err) throw err;
-									await submitted.update('Dodano aktywność.');
-								});
+							const { prisma } = require('../utils/functions/client');
+							await prisma.activity.create({
+								data: {
+									name: submitted.fields.getTextInputValue('content'),
+									type: submitted.fields.getTextInputValue('type'),
+								},
+							}).then(async () => {
+								await submitted.update('Pomyślnie dodano nową aktywność.');
+							}).catch(async err => {
+								console.error(err);
+								await submitted.update('Coś poszło nie tak. Sprawdź lepiej logi szybko.');
 							});
 						}
+						break;
+					}
+					case 'delactivity': {
+						const { prisma } = require('../utils/functions/client');
+						const activities = await prisma.activity.findMany();
+						const menu = [];
+						const things = activities;
+						things.forEach(thing => {
+							return menu.push({
+								label: thing.name,
+								description: `ID: ${thing.id} | Typ: ${thing.type}`,
+								value: `${thing.id}`,
+							});
+						});
+						const select = new ActionRowBuilder()
+							.addComponents(
+								new SelectMenuBuilder()
+									.setCustomId('delactivity')
+									.setPlaceholder('Wybierz aktywność do skasowania')
+									.addOptions(menu),
+							);
+						await interaction.editReply({ content: '', components: [select], fetchReply: true }).then(inter2 => {
+							const filter2 = i2 => {
+								if (i2.user.id !== interaction.user.id) i2.deferUpdate();
+								return i2.user.id === interaction.user.id;
+							};
+
+							inter2.awaitMessageComponent({ filter: filter2, componentType: ComponentType.StringSelect, time: 5000 })
+								.then(async i2 => {
+									await prisma.activity.delete({ where: { id: parseInt(i2.values[0]) } });
+									await i2.update({ content: 'Pomyślnie usunięto aktywność.', components: [] });
+								})
+								.catch(async err => {
+									console.error(err);
+									await interaction.editReply({ content: 'Nie wybrano żadnej aktywności do skasowania, albo wystąpił błąd.', components: [] });
+								});
+						});
 						break;
 					}
 					}

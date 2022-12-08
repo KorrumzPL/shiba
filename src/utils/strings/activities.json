@@ -1,61 +1,214 @@
-{
-    "Game": [
-        "Zainstaluję ci Arch Linuxa o 3 w nocy",
-        "Idź i dotknij trawy",
-        "...a trzeciego dnia zastali pusty GRUB",
-        "NOOOOOOMZ kiedy w końcu zweryfikujesz mnie kurde",
-        "konsola.kłoda(\"Heloł łorld\")",
-        "nudzi mi się",
-        "yyyyyyyyyyyyyyyyyyy woda",
-        "Ryszard ty draniu! Oddaj rower!",
-        "Czyste 5 zł",
-        "\"Mieszkam w Å\" - jakiś norweg, 2022",
-        "mmmmm tokeny",
-        "nie cierpię minionków #pdk",
-        "co?",
-        "Upadek Chłopaki",
-        "depresso",
-        "Слава Україні! Героям слава!",
-        "Kąpię się w Odrze łowiąc dziwnie nieruchome rybki",
-        "NAFO expansion is non-negotiable.",
-        "Podręcznik do HiT? Rtęć w Odrze? Zakaz aborcji? Janusz, odłóż tego Żubra i składaj w końcu ten wniosek na 500+!",
-        "Gdzie są TE tokeny?",
-        "kys! = keep yourself safe!",
-        "Shiba | Grupa ORLEN",
-        "Wypróbuj także Fluorine! https://fluorine.me",
-        "Gdy chciałeś cimcirimcim jego matkę, ale ma on dwóch ojców",
-        "\"i love this and u irl\" - imaloser71, 2022",
-        "A tam była cukiernia. Po maturze chodziliśmy na kremówki.",
-        "No Nut November? A to nie umiesz się kontrolować poza tym miesiącem?"
-    ],
-    "Watching": [
-        "twoją matkę na OnlyFans",
-        "CUNNY 😭",
-        "poradnik Zbigniewa Stonogi do prania pieniędzy",
-        "Wiadomości TVP, bo nie stać mnie na dopalacze",
-        "twój serwer",
-        "ciebie przez okno",
-        "nomz.ct8.pl/pliki/jak_uwolnic_sie_z_kajdanek.mp4",
-        "Życie w Polsce odcinek 213742069",
-        "trawę na zewnątrz",
-        "KTO OSTATNI WYJDZIE Z TOI TOIA WYGRYWA 2137 GROSZY",
-        "fonts collapsing",
-        "Královec",
-        "kolejne orędzie naczelnika Kaczyńskiego do narodu",
-        "KERFUSIA 😳😳😳",
-        "anime"
-    ],
-    "Listening": [
-        "Neko Hacker",
-        "pierdolenie twojego starego o starych dobrych czasach",
-        "KOKO KOKO EURO SPOKO",
-        "twój serwer",
-        "ciebie (żyję w twoich ścianach)",
-        "zIeLoNE zIelOnE rOBiE sObiE zIeLoNE",
-        "Naaaa Shoooo PI PI PI PI PI PI PI PI PI",
-        "crypto idiota traci swoje ostatnie 10 zł i płacze ASMR",
-        "Żurawiejki",
-        "płaczu kacapów",
-        "kolejny nieśmieszny żart o skakaniu z 9 piętra"
-    ]
-}
+[
+    {
+        "name": "Zainstaluję ci Arch Linuxa o 3 w nocy",
+        "type": "Game"
+    },
+    {
+        "name": "Idź i dotknij trawy",
+        "type": "Game"
+    },
+    {
+        "name": "...a trzeciego dnia zastali pusty GRUB",
+        "type": "Game"
+    },
+    {
+        "name": "NOOOOOOMZ kiedy w końcu zweryfikujesz mnie kurde",
+        "type": "Game"
+    },
+    {
+        "name": "konsola.kłoda(\"Heloł łorld\")",
+        "type": "Game"
+    },
+    {
+        "name": "nudzi mi się",
+        "type": "Game"
+    },
+    {
+        "name": "yyyyyyyyyyyyyyyyyyy woda",
+        "type": "Game"
+    },
+    {
+        "name": "Ryszard ty draniu! Oddaj rower!",
+        "type": "Game"
+    },
+    {
+        "name": "Czyste 5 zł",
+        "type": "Game"
+    },
+    {
+        "name": "\"Mieszkam w Å\" - jakiś norweg, 2022",
+        "type": "Game"
+    },
+    {
+        "name": "mmmmm tokeny",
+        "type": "Game"
+    },
+    {
+        "name": "nie cierpię minionków #pdk",
+        "type": "Game"
+    },
+    {
+        "name": "co?",
+        "type": "Game"
+    },
+    {
+        "name": "Upadek Chłopaki",
+        "type": "Game"
+    },
+    {
+        "name": "depresso",
+        "type": "Game"
+    },
+    {
+        "name": "Слава Україні! Героям слава!",
+        "type": "Game"
+    },
+    {
+        "name": "Kąpię się w Odrze łowiąc dziwnie nieruchome rybki",
+        "type": "Game"
+    },
+    {
+        "name": "NAFO expansion is non-negotiable.",
+        "type": "Game"
+    },
+    {
+        "name": "Podręcznik do HiT? Rtęć w Odrze? Zakaz aborcji? Janusz, odłóż tego Żubra i składaj w końcu ten wniosek na 500+!",
+        "type": "Game"
+    },
+    {
+        "name": "Gdzie są TE tokeny?",
+        "type": "Game"
+    },
+    {
+        "name": "kys! = keep yourself safe!",
+        "type": "Game"
+    },
+    {
+        "name": "Shiba | Grupa ORLEN",
+        "type": "Game"
+    },
+    {
+        "name": "Wypróbuj także Fluorine! https://fluorine.me",
+        "type": "Game"
+    },
+    {
+        "name": "Gdy chciałeś cimcirimcim jego matkę, ale ma on dwóch ojców",
+        "type": "Game"
+    },
+    {
+        "name": "\"i love this and u irl\" - imaloser71, 2022",
+        "type": "Game"
+    },
+    {
+        "name": "A tam była cukiernia. Po maturze chodziliśmy na kremówki.",
+        "type": "Game"
+    },
+    {
+        "name": "twoją matkę na OnlyFans",
+        "type": "Watching"
+    },
+    {
+        "name": "CUNNY 😭",
+        "type": "Watching"
+    },
+    {
+        "name": "poradnik Zbigniewa Stonogi do prania pieniędzy",
+        "type": "Watching"
+    },
+    {
+        "name": "Wiadomości TVP, bo nie stać mnie na dopalacze",
+        "type": "Watching"
+    },
+    {
+        "name": "twój serwer",
+        "type": "Listening"
+    },
+    {
+        "name": "ciebie przez okno",
+        "type": "Watching"
+    },
+    {
+        "name": "nomz.ct8.pl/pliki/jak_uwolnic_sie_z_kajdanek.mp4",
+        "type": "Watching"
+    },
+    {
+        "name": "Życie w Polsce odcinek 213742069",
+        "type": "Watching"
+    },
+    {
+        "name": "trawę na zewnątrz",
+        "type": "Watching"
+    },
+    {
+        "name": "KTO OSTATNI WYJDZIE Z TOI TOIA WYGRYWA 2137 GROSZY",
+        "type": "Watching"
+    },
+    {
+        "name": "fonts collapsing",
+        "type": "Watching"
+    },
+    {
+        "name": "Královec",
+        "type": "Watching"
+    },
+    {
+        "name": "kolejne orędzie naczelnika Kaczyńskiego do narodu",
+        "type": "Watching"
+    },
+    {
+        "name": "KERFUSIA 😳😳😳",
+        "type": "Watching"
+    },
+    {
+        "name": "anime",
+        "type": "Watching"
+    },
+    {
+        "name": "Neko Hacker",
+        "type": "Listening"
+    },
+    {
+        "name": "pierdolenie twojego starego o starych dobrych czasach",
+        "type": "Listening"
+    },
+    {
+        "name": "KOKO KOKO EURO SPOKO",
+        "type": "Listening"
+    },
+    {
+        "name": "ciebie (żyję w twoich ścianach)",
+        "type": "Listening"
+    },
+    {
+        "name": "zIeLoNE zIelOnE rOBiE sObiE zIeLoNE",
+        "type": "Listening"
+    },
+    {
+        "name": "Naaaa Shoooo PI PI PI PI PI PI PI PI PI",
+        "type": "Listening"
+    },
+    {
+        "name": "crypto idiota traci swoje ostatnie 10 zł i płacze ASMR",
+        "type": "Listening"
+    },
+    {
+        "name": "Żurawiejki",
+        "type": "Listening"
+    },
+    {
+        "name": "płaczu kacapów",
+        "type": "Listening"
+    },
+    {
+        "name": "kolejny nieśmieszny żart o skakaniu z 9 piętra",
+        "type": "Listening"
+    },
+    {
+        "name": "All I want for Christmas is your credit card information",
+        "type": "Game"
+    },
+    {
+        "name": "kolęd",
+        "type": "Listening"
+    }
+]

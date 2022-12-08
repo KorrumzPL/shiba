@@ -2,6 +2,7 @@ require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { prisma } = require('@prisma/client');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds], allowedMentions: { parse: [] } });
 
@@ -30,5 +31,9 @@ for (const file of eventFiles) {
 }
 
 process.on('unhandledRejection', console.error);
+
+process.on('exit', async () => {
+	await prisma.$disconnect();
+});
 
 client.login(process.env.TOKEN);
