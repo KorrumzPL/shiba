@@ -1,4 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder, ModalBuilder, TextInputBuilder, ComponentType, SlashCommandBuilder, SelectMenuBuilder } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ModalBuilder, TextInputBuilder, ComponentType, SlashCommandBuilder, StringSelectMenuBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -113,7 +113,7 @@ module.exports = {
 						});
 						const select = new ActionRowBuilder()
 							.addComponents(
-								new SelectMenuBuilder()
+								new StringSelectMenuBuilder()
 									.setCustomId('delactivity')
 									.setPlaceholder('Wybierz aktywność do skasowania')
 									.addOptions(menu),

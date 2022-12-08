@@ -1,6 +1,6 @@
 // TODO: napisz tą komendę inaczej jeśli możesz błagam i cafe.json też jakoś lepiej ogarnij
 
-const { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder, ComponentType, AttachmentBuilder, ButtonBuilder } = require('discord.js');
+const { SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, ComponentType, AttachmentBuilder, ButtonBuilder } = require('discord.js');
 const cafe = require('../utils/cafe/cafe.json');
 
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
 
 		const select = new ActionRowBuilder()
 			.addComponents(
-				new SelectMenuBuilder()
+				new StringSelectMenuBuilder()
 					.setCustomId('cafe')
 					.setPlaceholder('Wybierz coś sobie')
 					.addOptions(menu),
