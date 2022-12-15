@@ -1,15 +1,18 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const fs = require('node:fs');
+const path = require('node:path');
 
-const file = './utils/strings/activities.json';
+if (process.argv[2] === undefined || process.argv[3] === undefined) return console.log('Użycie: node activities.json <import/export> <ścieżka do pliku json>');
+
+const file = path.resolve(process.argv[3]);
 const data = [];
 
 (async () => {
 	if (process.argv[2] === 'import') {
 		const activities = require(file);
-		Object.entries(activities).forEach((activity) => data.push({ name: activity[1]['name'], type: activity[1]['type'] }));
-		await prisma.activity.deleteMany({});
+		Object.entries(activities).forEach(activity => data.push({ name: activity[1]['name'], type: activity[1]['type'] }));
+		await prisma.activity.deleteMany();
 		await prisma.activity.createMany({ data: data });
 		console.log('Pomyślnie zaimportowano aktywności.');
 		await prisma.$disconnect();
@@ -22,8 +25,5 @@ const data = [];
 			console.log('Pomyślnie wyeksportowano aktywności.');
 		});
 		await prisma.$disconnect();
-	}
-	else {
-		console.log('Opcje: import, export');
 	}
 })();
