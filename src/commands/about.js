@@ -17,7 +17,8 @@ module.exports = {
 		const users = `${interaction.client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)}`;
 		const ping = `${interaction.client.ws.ping} ms`;
 		const ram = `${Math.round((process.memoryUsage().rss / 1024 / 1024) * 100) / 100} MB`;
-		const uptime = dayjs.duration(interaction.client.uptime).format('D[d] H[h] m[m] s[s]');
+		const uptimeDuration = dayjs.duration(interaction.client.uptime);
+		const uptime = `${Math.floor(uptimeDuration.asDays())}d ${uptimeDuration.format('H[h] m[m] s[s]')}`;
 
 		const canvas = createCanvas(1256, 512);
 		const ctx = canvas.getContext('2d');
