@@ -42,8 +42,6 @@ module.exports = {
 
 		if (interaction.options.getSubcommandGroup() === null) {
 			if (interaction.options.getSubcommand() === 'eval') {
-				await interaction.editReply({ content: 'Oczekiwanie na eval...', components: [] });
-
 				const code = new TextInputBuilder()
 					.setCustomId('code')
 					.setLabel('Wprowadź kod do wykonania')
@@ -54,13 +52,8 @@ module.exports = {
 				const modal = new ModalBuilder({ customId: 'eval', title: 'Wykonaj kod', components: [actionRow] });
 				await interaction.showModal(modal);
 
-				const submitted = await interaction.awaitModalSubmit({ time: 60000 }).catch(async () => {
-					await interaction.editReply({ content: 'Przestano oczekiwać na eval.' });
-				});
-
-				if (submitted) {
-					await evaluate(submitted, submitted.fields.getTextInputValue('code'));
-				}
+				const submitted = await interaction.awaitModalSubmit({ time: 60000 }).catch(console.error);
+				if (submitted) await evaluate(submitted, submitted.fields.getTextInputValue('code'));
 			}
 		}
 		else if (interaction.options.getSubcommandGroup() === 'activities') {

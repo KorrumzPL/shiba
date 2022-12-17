@@ -26,9 +26,9 @@ const evaluate = async (interaction, code) => {
 				.setColor(colors.green)
 				.addFields([
 					{ name: 'Input', value: `\`\`\`js\n${input}\n\`\`\`` },
-					{ name: 'Output', value: 'Output jest w załączonym pliku.' },
+					{ name: 'Output', value: 'Output znajduje się w załączonym pliku.' },
 				]);
-			return await interaction.update({ content: '', embeds: [embed], files: [outtxt] });
+			return await interaction.reply({ content: '', embeds: [embed], files: [outtxt] });
 		}
 		else {
 			const embed = new EmbedBuilder()
@@ -37,7 +37,7 @@ const evaluate = async (interaction, code) => {
 					{ name: 'Input', value: `\`\`\`js\n${input}\n\`\`\`` },
 					{ name: 'Output', value: `\`\`\`xl\n${output}\n\`\`\`` },
 				]);
-			return await interaction.update({ content: '', embeds: [embed] });
+			return await interaction.reply({ content: '', embeds: [embed] });
 		}
 	}
 	catch (error) {
@@ -47,7 +47,7 @@ const evaluate = async (interaction, code) => {
 				{ name: 'Input', value: `\`\`\`js\n${input}\n\`\`\`` },
 				{ name: 'Output', value: `\`\`\`xl\n${error}\n\`\`\`` },
 			]);
-		return await interaction.update({ content: '', embeds: [embed] });
+		return await interaction.reply({ content: '', embeds: [embed] });
 	}
 };
 
