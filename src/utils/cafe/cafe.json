@@ -1,4 +1,27 @@
 {
+	"karp": "Karp smażony",
+	"karp-emoji": "🐟",
+	"karp-desc": "Kawałki smażonego karpia",
+	"karp-give": "Proszę, oto twój smażony karp.",
+	"karp-use": "Zjedz karpia",
+	"karp-using": "*[user]* je karpia",
+	"karp-used": [
+		"Podczas jedzenia karpia zadławiłeś się ością. Trochę głupia śmierć, no ale zdarza się.",
+		"Zjadłeś karpia. Był przepyszny."
+	],
+
+	"piernik": "Pierniczek świąteczny",
+	"piernik-emoji": "⛄",
+	"piernik-desc": "Piernikowy ludzik",
+	"piernik-give": "Proszę, oto twój pierniczek.",
+	"piernik-use": "Zjedz piernika",
+	"piernik-using": "*[user]* je piernika",
+	"piernik-used": [
+		"Zjadłeś pierniczka, pomimo jego głośnego krzyku i próby ucieczki przed zagładą. Był wyborny.",
+		"Zakrztusiłeś się pierniczkiem. Gratuluję.",
+		"Zjadłeś pierniczka. Był smaczny."
+	],
+
 	"cola": "Puszka nom coli",
 	"cola-emoji": "🧋",
 	"cola-desc": "Najlepsza cola na świecie - Magda Gessler, 1939",
