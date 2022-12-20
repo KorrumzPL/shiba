@@ -20,12 +20,10 @@
   },
   "homepage": "https://github.com/Nomz420/shiba#readme",
   "dependencies": {
-    "@discordjs/rest": "^1.5.0",
     "@napi-rs/canvas": "^0.1.30",
     "@prisma/client": "^4.7.1",
     "common-tags": "^1.8.2",
     "dayjs": "^1.11.7",
-    "discord-api-types": "^0.37.23",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3"
   },
