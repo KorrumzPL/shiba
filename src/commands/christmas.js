@@ -1,6 +1,11 @@
 const { SlashCommandBuilder, AttachmentBuilder, ComponentType, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const { createCanvas, Image, loadImage } = require('@napi-rs/canvas');
-const date = new Date();
+const { prezent } = require('../utils/strings/replies.json');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -41,11 +46,14 @@ module.exports = {
 		),
 
 	async execute(interaction) {
+		const date = dayjs().tz('Europe/Warsaw');
+
 		switch (interaction.options.getSubcommand()) {
 		case 'prezent': {
+			if (interaction.options.getUser('osoba').bot) return await interaction.reply('Po co wręczasz botu prezent? Boty nie umieją otwierać prezentów.');
 			if (interaction.user.id === interaction.options.getUser('osoba').id) return await interaction.reply('Gratuluję, wręczyłeś(-aś) prezent samemu(-ej) sobie.');
-			if (date.getDate() < 24) return await interaction.reply('Poczekaj do 24 grudnia, nie mam nawet jeszcze co rozdawać.');
-			if (date.getDate() > 26) return await interaction.reply('Wszystkie prezenty zostały już rozdane ¯\\_(ツ)_/¯');
+			if (date.get('D') < 24) return await interaction.reply('Poczekaj do 24 grudnia, nie mam nawet jeszcze co rozdawać.');
+			if (date.get('D') > 26) return await interaction.reply('Wszystkie prezenty zostały już rozdane ¯\\_(ツ)_/¯');
 
 			const row = new ActionRowBuilder()
 				.addComponents(
@@ -59,7 +67,7 @@ module.exports = {
 			await interaction.reply({
 				allowedMentions: { parse: ['users'] },
 				components: [row],
-				content: `<@${interaction.options.getUser('osoba').id}>, otrzymałeś prezent od <@${interaction.user.id}>!`,
+				content: `<@${interaction.options.getUser('osoba').id}>, otrzymałeś(-aś) prezent od <@${interaction.user.id}>!`,
 				fetchReply: true,
 			}).then(inter => {
 				const filter = i => {
@@ -70,12 +78,11 @@ module.exports = {
 				inter.awaitMessageComponent({ filter: filter, componentType: ComponentType.Button, time: 900000 })
 					.then(async i => {
 						await i.deferUpdate();
-						const { prezent } = require('../utils/strings/replies.json');
 						const attachment = new AttachmentBuilder();
 						// profesjonalny workaround do jednego gifa (discord nie odpala apng i nie mam lepszego pomysłu)
 						if (interaction.options.getInteger('prezent') === 7) attachment.setFile('src/utils/images/prezenty/7.gif');
 						else attachment.setFile(`src/utils/images/prezenty/${interaction.options.getInteger('prezent')}.png`);
-						await inter.edit({ content: `Otworzyłeś(-aś) prezent od <@${interaction.user.id}>. ${prezent[interaction.options.getInteger('prezent')].replace('[user]', `<@${interaction.user.id}>`)}`, components: [], files: [attachment] });
+						await inter.edit({ content: `*<@${interaction.options.getUser('osoba').id}> otwiera prezent od <@${interaction.user.id}>.*\n${prezent[interaction.options.getInteger('prezent')].replace('[user]', `<@${interaction.user.id}>`)}`, components: [], files: [attachment] });
 					})
 					.catch(async () => {
 						row.components[0].setDisabled(true).setLabel('dobra za długo czekam nie dostaniesz prezentu').setStyle('Danger');
@@ -87,8 +94,8 @@ module.exports = {
 		}
 		case 'oplatek': {
 			if (interaction.user.id === interaction.options.getUser('osoba').id) return await interaction.reply('Złożyłeś(-aś) sobie samemu(-ej) życzenia i podzieliłeś(-aś) się opłatkiem z samym(-ą) sobą. Smutne.');
-			if (date.getDate() < 24) return await interaction.reply('Poczekaj do 24 grudnia, jeszcze opłatków nie kupiłem nawet...');
-			if (date.getDate() > 26) return await interaction.reply('Opłatki mi się skończyły. ~~Wszystkie zjadłem.~~');
+			if (date.get('D') < 24) return await interaction.reply('Poczekaj do 24 grudnia, jeszcze opłatków nie kupiłem nawet...');
+			if (date.get('D') > 26) return await interaction.reply('Opłatki mi się skończyły. ~~Wszystkie zjadłem.~~');
 
 			await interaction.deferReply();
 
