@@ -29,14 +29,12 @@ module.exports = {
 			ctx.fillText(text, x, y);
 		};
 
-		const czapka = await loadImage('src/utils/images/czapka.png');
 		let ziemniak;
 		if (interaction.client.ws.ping > 200) ziemniak = await loadImage('src/utils/images/ziemniak_fire.png');
 		else ziemniak = await loadImage('src/utils/images/ziemniak.png');
 
 		ctx.drawImage(stats, 0, 0, canvas.width, canvas.height);
 		ctx.drawImage(ziemniak, 750, 70, ziemniak.width / 1.5, ziemniak.height / 1.5);
-		ctx.drawImage(czapka, 745, -10, czapka.width / 1.2, czapka.height / 1.2);
 		ctx.fillStyle = '#ffffff';
 		ctx.strokeStyle = '#000000';
 		ctx.lineWidth = 4;
