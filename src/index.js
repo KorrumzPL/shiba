@@ -6,6 +6,11 @@ const { prisma } = require('@prisma/client');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds], allowedMentions: { parse: [] } });
 
+client.counters = {
+	commands: 0,
+	errors: 0,
+};
+
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));

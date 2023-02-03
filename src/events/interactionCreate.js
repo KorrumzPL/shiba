@@ -10,9 +10,11 @@ module.exports = {
 
 		try {
 			await command.execute(interaction);
+			interaction.client.counters.commands++;
 		}
 		catch (error) {
 			console.error(error);
+			interaction.client.counters.errors++;
 		}
 	},
 };
