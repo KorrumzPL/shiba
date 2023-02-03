@@ -1,4 +1,7 @@
 const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
+const { eightball, rape, motivate } = require('../utils/strings/replies.json');
+const dayjs = require('dayjs');
+const { createCanvas, Image } = require('@napi-rs/canvas');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -45,6 +48,11 @@ module.exports = {
 			subcommand
 				.setName('awesomecar')
 				.setDescription('Losowe auto z https://awesomecars.neocities.org'),
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('motivate')
+				.setDescription('Wysyła (niezbyt) motywującą wiadomość'),
 		),
 
 	async execute(interaction) {
@@ -59,7 +67,6 @@ module.exports = {
 			break;
 		}
 		case '8ball': {
-			const { eightball } = require('../utils/strings/replies.json');
 			await interaction.reply(`Pytanie: **${interaction.options.getString('pytanie')}**\nOdpowiedź: ${eightball[Math.floor(Math.random() * eightball.length)]}`);
 			break;
 		}
@@ -83,8 +90,6 @@ module.exports = {
 				return context.font;
 			};
 
-			const dayjs = require('dayjs');
-			const { createCanvas, Image } = require('@napi-rs/canvas');
 			const canvas = createCanvas(794, 1123);
 			const ctx = canvas.getContext('2d');
 			const akt = new Image();
@@ -111,12 +116,15 @@ module.exports = {
 			break;
 		}
 		case 'rape': {
-			const { rape } = require('../utils/strings/replies.json');
 			await interaction.reply(rape[Math.floor(Math.random() * rape.length)].replace('[serwer]', interaction.guild.name));
 			break;
 		}
 		case 'awesomecar': {
 			await interaction.reply(`https://awesomecars.neocities.org/ver2/${Math.floor(Math.random() * 1927) + 1}.mp4`);
+			break;
+		}
+		case 'motivate': {
+			await interaction.reply(motivate[Math.floor(Math.random() * motivate.length)]);
 			break;
 		}
 		}
